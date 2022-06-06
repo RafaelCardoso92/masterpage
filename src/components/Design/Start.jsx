@@ -168,7 +168,6 @@ const Start = (props) => {
 {/* border test */}
           <Parallax 
                   blur={{ min: -15, max: 15 }}
-                  bgImageAlt="the dog"
                   strength={-200}>
             <div className={styles.paralax} >
               <div className={styles.paralaxContainer}>
@@ -179,7 +178,6 @@ const Start = (props) => {
           </Parallax>
           <Parallax 
                   blur={{ min: -15, max: 15 }}
-                  bgImageAlt="the dog"
                   strength={-200}>
             <div className={styles.paralax} >
               <div className={styles.paralaxContainer}>

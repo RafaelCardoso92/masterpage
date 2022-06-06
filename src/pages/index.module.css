@@ -1,0 +1,88 @@
+.App {
+background-color: var(--backgroundColor);
+height: 100vh;
+
+}
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+.lottieBackground{
+  z-index:-100;
+}
+.menu{
+  z-index:100;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.Layout {
+  opacity: 0;
+}
+.mouseOut {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+}
+.codeLayout {
+ background-image: var(--codeBackground);
+ background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  transition: all 0.5s ease-in;
+  
+}
+.codeLayout:hover { 
+  animation: visible 2s;  
+  opacity: 1;
+}
+.designLayout {
+  background-image: var(--designBackground);
+  background-repeat: no-repeat;
+   background-size: cover;
+   opacity: 0;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   color: white;
+   transition: all 0.5s ease-in;
+   
+}
+.designLayout:hover { 
+  animation: visible 2s;  
+  opacity: 1;
+}
+@keyframes slide {
+  100% { left: 0; }
+}
+@keyframes visible {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+ }
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

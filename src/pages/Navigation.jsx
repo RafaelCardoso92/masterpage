@@ -7,7 +7,6 @@ const Navigation = (props) => {
   return (
     <div className={styles.container}>
       <Link href="/Design"><Typography as="h1">Design</Typography></Link>
-      <Link href="/Code"><Typography as="h1">{`<Code/>`}</Typography></Link>
     </div>
   );
 }

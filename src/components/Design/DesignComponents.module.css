@@ -42,7 +42,7 @@
     border-radius: unset;
 }
 .email{
-    margin-top: 5rem;
+    cursor: url(../../images/click.png),auto
 }
 .paralaxContainer{
     display: flex;

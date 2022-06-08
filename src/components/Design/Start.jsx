@@ -149,12 +149,12 @@ const Start = (props) => {
             </div>
           </Parallax>
 
-          <a href="https://www.linkedin.com/in/rafaelcardosouk/">
+          <a href="https://www.linkedin.com/in/rafaelcardosouk/" className={` ${styles.email}`}> 
       
             <Parallax 
                     translateY={[300, 300]}
                     scale= {[3, 8, 'easeInQuad']}>
-              <div className={`${styles.paralax} ${styles.noBackground} ${styles.email}`} >
+              <div className={`${styles.paralax} ${styles.noBackground}`} >
               <Lottie
                         loop
                         animationData={emailAnimation}

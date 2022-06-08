@@ -42,7 +42,7 @@ const Main = (props) => {
             </div>
           </Parallax>
 
-          <Parallax translateX={[-80, -20]}>
+          <Parallax translateX={[-80, 0]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
                 <Lottie
                   loop
@@ -52,7 +52,7 @@ const Main = (props) => {
             </div>
           </Parallax>
           
-          <Parallax translateX={[50, 0]} translateY={[-130, -130]}>
+          <Parallax translateX={[50, 15]} translateY={[-120, -120]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
               <div className={styles.paralaxTextWrap}>
                   <Parallax  opacity={[-4, 7]}>
@@ -70,7 +70,7 @@ const Main = (props) => {
 
           <Link href="/Design">
             <Parallax translateY={[-80, -500]} scale={[1, 6, 'easeInQuad']}>
-              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow}`}>
+              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow} ${styles.mobile}`}>
                     <h1>Check my designs</h1>
                   <Lottie
                     loop

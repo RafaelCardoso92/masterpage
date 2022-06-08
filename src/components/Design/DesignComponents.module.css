@@ -63,3 +63,66 @@
 .contact{
     background-color: unset;
 }
+
+@media only screen and (max-width: 1300px) {
+    .paralax{
+        width: 80vw;
+    }
+    .paralaxContent{
+        font-size:1.5rem;
+        padding: 2rem;
+    }
+  }
+
+
+  @media only screen and (max-width: 1024px) {
+    .paralax{
+        width: 70vw;
+    }
+    .paralaxContent{
+        font-size:1.3rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    .paralax{
+        width: 70vw;
+    }
+    .paralaxContent{
+        width: 25rem;
+        font-size:1.6rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .paralax{
+        padding: 0rem 2rem;
+    }
+    .paralaxContent{
+        width: 25rem;
+        font-size:1.5rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .paralax{
+        width: 80vw;
+        padding: 0rem 2rem;
+    }
+    .paralaxContent{
+        font-size:1.2rem;
+        padding: 0.5rem 0rem;
+    }
+    
+  }
+  @media only screen and (max-width: 380px) {
+    .paralax{
+        width: 70vw;
+    }
+
+    .paralaxContent{
+        font-size:1.1rem;
+    }
+  }

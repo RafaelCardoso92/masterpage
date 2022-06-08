@@ -95,3 +95,74 @@
       transform: scale(1);
     }
   }
+
+  @media only screen and (max-width: 1300px) {
+    .paralax{
+        width: 80vw;
+    }
+    .paralaxContent{
+        font-size:1.5rem;
+        padding: 2rem;
+    }
+  }
+  .mobile{
+    height: 6rem;
+}
+
+  @media only screen and (max-width: 1024px) {
+    .paralax{
+        width: 70vw;
+    }
+    .paralaxContent{
+        font-size:1.3rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+  .mobile{
+    height: 6rem;
+}
+
+  @media only screen and (max-width: 1024px) {
+    .paralax{
+        width: 70vw;
+    }
+    .paralaxContent{
+        font-size:1.3rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+  .mobile{
+    height: 6rem;
+}
+  @media only screen and (max-width: 768px) {
+    .paralaxContent{
+        font-size:1.1rem;
+        padding: 0.5rem 2rem;
+    }
+  }
+  @media only screen and (max-width: 480px) {
+    .paralax{
+        width: 80vw;
+    }
+    .paralaxContent{
+        font-size:0.7rem;
+        padding: 0.5rem 2rem;
+    }
+    
+    .mobile{
+        height: 6rem;
+    }
+  }
+  @media only screen and (max-width: 380px) {
+    .paralax{
+        width: 80vw;
+    }
+    .paralaxContent{
+        font-size:0.7rem;
+        padding: 0.2rem 2rem;
+    }
+    
+    .mobile{
+        height: 3rem;
+    }
+  }

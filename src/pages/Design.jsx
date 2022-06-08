@@ -10,7 +10,7 @@ const Design = (props) => {
   useEffect(() => {
     setTimeout(() => {
       setCount(false)
-    }, 3000);
+    }, 2200);
     setCount(true)
   },[])
 

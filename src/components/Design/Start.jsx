@@ -46,7 +46,7 @@ const Start = (props) => {
                         animationData={reactAnimation}
                         play
                       />
-                <div className={styles.paralaxContent}>This website was made with React!</div>
+                <div className={styles.paralaxContent}>This website was made with <span className={styles.highlight}>React</span>!</div>
 
             </div>
           </Parallax>
@@ -54,7 +54,7 @@ const Start = (props) => {
 
           <Parallax translateX={[-200, 100]}>
             <div className={`${styles.paralax} `} >
-            <div className={styles.paralaxContent}>I have creative ideas to make great design solutions</div>
+            <div className={styles.paralaxContent}>I have <span className={styles.highlight}>creative ideas</span> to make great design solutions</div>
             <Lottie
                 loop
                 animationData={ideaAnimation}
@@ -73,14 +73,14 @@ const Start = (props) => {
                 play
                
               />
-              <div className={styles.paralaxContent}>I can then turn those ideas in to reality!</div>
+              <div className={styles.paralaxContent}>I can then turn those ideas in to <span className={styles.highlight}>reality</span>!</div>
             </div>
           </Parallax>
 
           <Parallax translateY={[100, -100]}
                   opacity={[-2, 5]}                 >
             <div className={`${styles.paralax}`} >
-            <div className={styles.paralaxContent}>Responsivess for every device!</div>
+            <div className={styles.paralaxContent}><span className={styles.highlight}>Responsivess</span> for every device!</div>
               <Lottie
                 loop
                 animationData={responsiveAnimation}
@@ -98,7 +98,7 @@ const Start = (props) => {
                 animationData={wordpressAnimation}
                 play
               />
-              <div className={styles.paralaxContent}>Want it in wordpress? no problem!</div>
+              <div className={styles.paralaxContent}>Want it in <span className={styles.highlight}>wordpress</span>? no problem!</div>
             </div>
           </Parallax>
 
@@ -139,7 +139,7 @@ const Start = (props) => {
                       play
                 />
                 
-                  <div className={styles.paralaxContent}>From domain search to webhosting, I got you covered!</div>
+                  <div className={styles.paralaxContent}>From <span className={styles.highlight}>domain search</span> to <span className={styles.highlight}>webhosting</span>, I got you covered!</div>
                 
                 <Lottie
                       loop
@@ -171,7 +171,7 @@ const Start = (props) => {
                   strength={-200}>
             <div className={styles.paralax} >
               <div className={styles.paralaxContainer}>
-                <div className={styles.paralaxContent}>HTML inside the parallax</div>
+                <div className={styles.paralaxContent}>Contact me!</div>
               </div>
             </div>
             

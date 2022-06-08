@@ -10,7 +10,7 @@ const Design = (props) => {
   useEffect(() => {
     setTimeout(() => {
       setCount(false)
-    }, 2000);
+    }, 3000);
     setCount(true)
   },[])
 
@@ -22,11 +22,14 @@ const Design = (props) => {
           loop
           animationData={loadingAnimation}
           play
+
         />
       </div>
       }
       {!count &&
-      <Start wait={1000}/>
+      <div className={styles.start}>
+        <Start/>
+      </div>
       }
     </div>
   );

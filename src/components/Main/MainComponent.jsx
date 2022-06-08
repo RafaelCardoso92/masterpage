@@ -53,28 +53,26 @@ const Main = (props) => {
             </div>
           </Parallax>
           
-          <Parallax translateX={[50, 0]} translateY={[-150, -150]}>
+          <Parallax translateX={[50, 0]} translateY={[-130, -130]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
               <div className={styles.paralaxTextWrap}>
                   <Parallax translateX={[30, 10]} opacity={[-4, 7]}>
-                    <div className={styles.paralaxContent}>Elegant</div>
+                    <div className={styles.paralaxContent}><h2>Elegant</h2></div>
                   </Parallax>
                   <Parallax translateX={[60, 10]} opacity={[-5, 8]}>
-                    <div className={styles.paralaxContent}>Intuitive</div>
+                    <div className={styles.paralaxContent}><h2>Intuitive</h2></div>
                   </Parallax>
                   <Parallax translateX={[90, 10]} opacity={[-6, 9]}>
-                    <div className={styles.paralaxContent}>Responsive</div>
+                    <div className={styles.paralaxContent}><h2>Responsive</h2></div>
                   </Parallax>
               </div>
             </div>
           </Parallax>
 
           <Link href="/Design">
-            <Parallax translateY={[-50, -500]}>
+            <Parallax translateY={[-80, -500]} scale={[1, 6, 'easeInQuad']}>
               <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow}`}>
-                  <div className={styles.arrowText}>
                     <h1>Check my designs</h1>
-                  </div>
                   <Lottie
                     loop
                     animationData={arrowAnimation}
@@ -82,7 +80,6 @@ const Main = (props) => {
                     style={{ width: 100, height: 100 }}
                   />
               </div>
-
             </Parallax>
           </Link>
     </div>

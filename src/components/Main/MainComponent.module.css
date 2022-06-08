@@ -54,12 +54,18 @@
     justify-content: flex-end;
 }
 .arrow{
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-}
-.arrowText{
+    transition: all 0.5s;
     color: rgb(82, 82, 82);
-    padding:unset;
+}
+.arrow:hover{
+    color: #5D68F8;
+}
+.bottomBg{
+    position: relative;
+    display: flex;
 }

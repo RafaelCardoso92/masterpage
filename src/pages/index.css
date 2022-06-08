@@ -19,6 +19,7 @@ body {
   --cssBracketColor:yellow;
   --htmlTagColor:rgb(96, 197, 255);
   --htmlTagSymbolColor:grey;
+  --highlightColor:#5D68F8;
 }
 
 code {

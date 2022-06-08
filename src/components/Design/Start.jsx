@@ -14,7 +14,7 @@ import jiraAnimation from "../../Lotties/33563-jira-logo-v2.json"
 import domainAnimation from "../../Lotties/29408-domain-whois.json"
 import hostingAnimation from "../../Lotties/29413-hosting.json"
 import emailAnimation from "../../Lotties/88708-email.json"
-
+import Link from "next/link";
 const Start = (props) => {
 
 
@@ -85,12 +85,11 @@ const Start = (props) => {
                 loop
                 animationData={responsiveAnimation}
                 play
-                // style={{ width: 200, height: 300 }}
               />
             </div>
           </Parallax>
 
-          <Parallax translateY={[-70, 40]}
+          <Parallax translateY={[-50, 40]}
                   opacity={[-2, 4]}                 >
             <div className={styles.paralax} >
             <Lottie
@@ -150,44 +149,36 @@ const Start = (props) => {
             </div>
           </Parallax>
 
-
-          <Parallax translateY={[100, -100]}
-                  scale= {[5, 10, 'easeInQuad']}>
-            <div className={`${styles.paralax} ${styles.noBackground} ${styles.email}`} >
-            <Lottie
-                      loop
-                      animationData={emailAnimation}
-                      play
-                />
-            </div>
-            
-          </Parallax>
-
-
-
-{/* border test */}
-          <Parallax 
-                  blur={{ min: -15, max: 15 }}
-                  strength={-200}>
-            <div className={styles.paralax} >
-              <div className={styles.paralaxContainer}>
-                <div className={styles.paralaxContent}>Contact me!</div>
+          <a href="https://www.linkedin.com/in/rafaelcardosouk/">
+      
+            <Parallax 
+                    translateY={[300, 300]}
+                    scale= {[3, 8, 'easeInQuad']}>
+              <div className={`${styles.paralax} ${styles.noBackground} ${styles.email}`} >
+              <Lottie
+                        loop
+                        animationData={emailAnimation}
+                        play
+                  />
               </div>
-            </div>
+              
+            </Parallax>
             
-          </Parallax>
-          <Parallax 
-                  blur={{ min: -15, max: 15 }}
-                  strength={-200}>
-            <div className={styles.paralax} >
-              <div className={styles.paralaxContainer}>
-                <div className={styles.paralaxContent}>HTML inside the parallax</div>
+            <Parallax >
+              <div className={`${styles.paralax} ${styles.contact}`} >
+                <div className={styles.paralaxContainer}>
+
+                </div>
               </div>
-            </div>
-            
-          </Parallax>
-
-
+            </Parallax>
+            <Parallax >
+              <div className={`${styles.paralax} ${styles.contact}`} >
+                <div className={styles.paralaxContainer}>
+                </div>
+              </div>
+            </Parallax>
+           </a>
+          
     </div>
     </ParallaxProvider>
   );

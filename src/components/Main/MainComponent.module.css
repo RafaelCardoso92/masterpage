@@ -6,6 +6,12 @@
     align-items: center;
 }
 
+.social{
+    position: sticky;
+    top: 0;
+    background-color: green;
+    border: 2px solid #4CAF50;
+}
 .paralax{
     background-color: white;
     margin-top: 3rem;
@@ -39,7 +45,6 @@
     justify-content: center;
 }
 .paralaxContent{
-
     padding: 2rem;
     font-size:1.5rem;
     color: rgb(82, 82, 82);
@@ -48,11 +53,6 @@
     justify-content: center;
 }
 
-.corner{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-}
 .arrow{
     z-index: 10;
     display: flex;
@@ -62,10 +62,36 @@
     transition: all 0.5s;
     color: rgb(82, 82, 82);
 }
+.highlight{
+    color: var(--highlightColor);
+}
 .arrow:hover{
-    color: #5D68F8;
+    color: var(--highlightColor);
 }
 .bottomBg{
     position: relative;
     display: flex;
 }
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+  }
+
+.paralaxPop{
+    animation: popup ease 2s;
+  }
+  
+  @keyframes popup {
+    0%{
+      transform: scale(0.1);
+    }
+    100%{
+      transform: scale(1);
+    }
+  }

@@ -58,5 +58,8 @@
     align-self: center;
 }
 .highlight{
-    color:#5D68F8;
+    color:var(--highlightColor)
+}
+.contact{
+    background-color: unset;
 }

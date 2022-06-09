@@ -11,7 +11,7 @@ const Main = (props) => {
 
   return (
     <ParallaxProvider>
-
+        
     <div className={`${styles.container}`}>
           <Parallax translateX={[-200, 50]} translateY={[-200, 100]} scale={[0.1, 4, 'easeInQuad']} opacity={[5, -1]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>

@@ -16,6 +16,7 @@ const Design = (props) => {
 
   return (
     <div className={styles.container}>
+
         <Head>
           <title>Rafael Cardoso</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />

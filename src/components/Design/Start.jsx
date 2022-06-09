@@ -73,14 +73,14 @@ const Start = (props) => {
                 play
                
               />
-              <div className={styles.paralaxContent}>I can then turn those ideas in to <span className={styles.highlight}>reality</span>!</div>
+              <div className={styles.paralaxContent}>I can then turn those ideas into <span className={styles.highlight}>reality</span>!</div>
             </div>
           </Parallax>
 
           <Parallax translateY={[100, -100]}
                   opacity={[-2, 5]}                 >
             <div className={`${styles.paralax}`} >
-            <div className={styles.paralaxContent}><span className={styles.highlight}>Responsivess</span> for every device!</div>
+            <div className={styles.paralaxContent}><span className={styles.highlight}>Responsiveness</span> for every device!</div>
               <Lottie
                 loop
                 animationData={responsiveAnimation}
@@ -138,7 +138,7 @@ const Start = (props) => {
                       play
                 />
                 
-                  <div className={styles.paralaxContent}>From <span className={styles.highlight}>domain search</span> to <span className={styles.highlight}>webhosting</span>, I got you covered!</div>
+                  <div className={styles.paralaxContent}>From <span className={styles.highlight}>Domain search</span> to <span className={styles.highlight}>Webhosting</span>, I got you covered!</div>
                 
                 <Lottie
                       loop

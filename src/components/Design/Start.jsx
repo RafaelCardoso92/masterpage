@@ -14,25 +14,21 @@ import jiraAnimation from "../../Lotties/33563-jira-logo-v2.json"
 import domainAnimation from "../../Lotties/29408-domain-whois.json"
 import hostingAnimation from "../../Lotties/29413-hosting.json"
 import emailAnimation from "../../Lotties/88708-email.json"
+import figmaAnimation from "../../Lotties/33564-figma-logo.json"
 import Link from "next/link";
 const Start = (props) => {
-
-
-  
   return (
     <ParallaxProvider>
     <div className={styles.container}>
-          <Parallax opacity={[8, 0]}>
+          <Parallax opacity={[5, -1]} translateY={[-100, 150]}>
             <div className={`${styles.paralax} ${styles.top}`} >
               <div className={styles.paralaxContainer}>
-  
                   <Lottie
                     loop
                     animationData={devAnimation}
                     play
                     // style={{ width: 200, height: 300 }}
                   />
-        
               </div>
             </div>
           </Parallax>
@@ -47,25 +43,23 @@ const Start = (props) => {
                         play
                       />
                 <div className={styles.paralaxContent}>This website was made with <span className={styles.highlight}>React</span>!</div>
-
             </div>
           </Parallax>
 
 
-          <Parallax translateX={[-200, 100]}>
+          <Parallax translateX={[-200, 100]} opacity={[-2, 4]}>
             <div className={`${styles.paralax} `} >
             <div className={styles.paralaxContent}>I have <span className={styles.highlight}>creative ideas</span> to make great design solutions</div>
             <Lottie
                 loop
                 animationData={ideaAnimation}
                 play
-                
               />
             </div>
           </Parallax>
 
 
-          <Parallax translateX={[200, -350]}>
+          <Parallax translateX={[200, -350]} opacity={[-1, 5]}>
           <div className={`${styles.paralax} `} >
             <Lottie
                 loop
@@ -103,25 +97,46 @@ const Start = (props) => {
 
 {/* right */}
 
-          <Parallax translateX={[-100, 100]} strength={-500}>
+          <Parallax translateX={[-50, 30]} >
             <div className={styles.horizontalScrollRight}>
               <Parallax>
                 <div className={`${styles.paralax} ${styles.noBackground}`} >
-                <Lottie
-                    loop
-                    animationData={nodeAnimation}
-                    play
-                  />
-                  <Lottie
-                    loop
-                    animationData={jiraAnimation}
-                    play
-                  />
-                  <Lottie
-                    loop
-                    animationData={githubAnimation}
-                    play
-                  />
+                  <Parallax rotateY = {[0, 720]}>
+                    <div  className={styles.rotate}>
+                      <Lottie
+                          loop
+                          animationData={figmaAnimation}
+                          play
+                        />
+                    </div>  
+                  </Parallax>
+                  <Parallax rotateY = {[0, 720]}>
+                    <div  className={styles.rotate}>
+                      <Lottie
+                          loop
+                          animationData={nodeAnimation}
+                          play
+                        />
+                    </div>  
+                  </Parallax>
+                  <Parallax rotateY = {[0, 720]}>
+                    <div  className={styles.rotate}>      
+                      <Lottie
+                        loop
+                        animationData={jiraAnimation}
+                        play
+                      />
+                    </div>  
+                  </Parallax>    
+                  <Parallax rotateY = {[0, 720]}>
+                    <div  className={styles.rotate}>  
+                      <Lottie
+                        loop
+                        animationData={githubAnimation}
+                        play
+                      />
+                    </div>  
+                  </Parallax>
                 </div>
               </Parallax>
             </div>

@@ -5,7 +5,6 @@ import Lottie from 'react-lottie-player'
 import developerAnimation from "../../Lotties/lf30_editor_i5kczg39.json"
 import loadingAnimation from "../../Lotties/9844-loading-40-paperplane.json"
 import arrowAnimation from "../../Lotties/lf30_editor_4mne7z5r.json"
-import Link from "next/link";
 
 const Main = (props) => {
 
@@ -42,7 +41,7 @@ const Main = (props) => {
             </div>
           </Parallax>
 
-          <Parallax translateX={[-80, 0]}>
+          <Parallax translateX={[-80, 0]}opacity={[4, -1]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
                 <Lottie
                   loop
@@ -52,7 +51,7 @@ const Main = (props) => {
             </div>
           </Parallax>
           
-          <Parallax translateX={[50, 15]} translateY={[-120, -120]}>
+          <Parallax translateX={[50, 15]} translateY={[-120, -120]} opacity={[3, -2]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
               <div className={styles.paralaxTextWrap}>
                   <Parallax  opacity={[-4, 7]}>
@@ -68,8 +67,7 @@ const Main = (props) => {
             </div>
           </Parallax>
 
-          <Link href="/Design">
-            <Parallax translateY={[-80, -500]} scale={[1, 6, 'easeInQuad']}>
+            <Parallax translateY={[-80, -500]} scale={[1, 6, 'easeInQuad']} opacity={[2, -1]}>
               <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow} ${styles.mobile}`}>
                     <h1>Check my designs</h1>
                   <Lottie
@@ -80,7 +78,6 @@ const Main = (props) => {
                   />
               </div>
             </Parallax>
-          </Link>
     </div>
     </ParallaxProvider>
   );

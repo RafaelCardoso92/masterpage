@@ -7,9 +7,10 @@
     align-items: center;
 }
 .horizontalScrollRight{
-    margin-top: 8rem;
+    margin-top: 20rem;
     display: flex;
     flex-direction: row;
+
 }
 .horizontalScroll{
     display: flex;
@@ -62,6 +63,9 @@
 }
 .contact{
     background-color: unset;
+}
+.rotate{
+    max-width: 150px;
 }
 
 @media only screen and (max-width: 1300px) {

@@ -65,9 +65,7 @@
 .highlight{
     color: var(--highlightColor);
 }
-.arrow:hover{
-    color: var(--highlightColor);
-}
+
 .bottomBg{
     position: relative;
     display: flex;

@@ -15,7 +15,6 @@ import domainAnimation from "../../Lotties/29408-domain-whois.json"
 import hostingAnimation from "../../Lotties/29413-hosting.json"
 import emailAnimation from "../../Lotties/88708-email.json"
 import figmaAnimation from "../../Lotties/33564-figma-logo.json"
-import Link from "next/link";
 const Start = (props) => {
   return (
     <ParallaxProvider>
@@ -60,7 +59,7 @@ const Start = (props) => {
 
 
           <Parallax translateX={[50, -80]} opacity={[5, -2] }>
-          <div className={`${styles.paralax} `} >
+          <div className={styles.paralax} >
             <Lottie
                 loop
                 animationData={workAnimation}
@@ -71,8 +70,7 @@ const Start = (props) => {
             </div>
           </Parallax>
 
-          <Parallax translateY={[100, -100]}
-                  opacity={[-2, 5]}                 >
+          <Parallax translateY={[100, -100]} opacity={[-2, 5]}>
             <div className={`${styles.paralax}`} >
             <div className={styles.paralaxContent}><span className={styles.highlight}>Responsiveness</span> for every device!</div>
               <Lottie

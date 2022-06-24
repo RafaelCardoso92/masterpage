@@ -47,7 +47,7 @@ const Start = (props) => {
           </Parallax>
 
 
-          <Parallax translateX={[-200, 100]} opacity={[-2, 4]}>
+          <Parallax translateX={[-80, 50]} opacity={[-2, 4]}>
             <div className={`${styles.paralax} `} >
             <div className={styles.paralaxContent}>I have <span className={styles.highlight}>creative ideas</span> to make great design solutions</div>
             <Lottie
@@ -59,7 +59,7 @@ const Start = (props) => {
           </Parallax>
 
 
-          <Parallax translateX={[200, -350]} opacity={[-1, 5]}>
+          <Parallax translateX={[50, -80]} opacity={[5, -2] }>
           <div className={`${styles.paralax} `} >
             <Lottie
                 loop

@@ -20,6 +20,9 @@
     align-items: center;
     justify-content: center;
     width: 50vw;
+}  
+.mobile{
+    height: 6rem;
 }
 .paralaxTextWrap{
     display: flex;
@@ -103,9 +106,6 @@
         padding: 2rem;
     }
   }
-  .mobile{
-    height: 6rem;
-}
 
   @media only screen and (max-width: 1024px) {
     .paralax{
@@ -116,9 +116,6 @@
         padding: 0.5rem 2rem;
     }
   }
-  .mobile{
-    height: 6rem;
-}
 
   @media only screen and (max-width: 1024px) {
     .paralax{
@@ -129,9 +126,7 @@
         padding: 0.5rem 2rem;
     }
   }
-  .mobile{
-    height: 6rem;
-}
+
   @media only screen and (max-width: 768px) {
     .paralaxContent{
         font-size:1.1rem;
@@ -147,9 +142,6 @@
         padding: 0.5rem 2rem;
     }
     
-    .mobile{
-        height: 6rem;
-    }
   }
   @media only screen and (max-width: 380px) {
     .paralax{

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./DesignComponents.module.css"
 import { Parallax, ParallaxProvider} from 'react-scroll-parallax';
 import Lottie from 'react-lottie-player'
@@ -15,11 +15,42 @@ import domainAnimation from "../../Lotties/29408-domain-whois.json"
 import hostingAnimation from "../../Lotties/29413-hosting.json"
 import emailAnimation from "../../Lotties/88708-email.json"
 import figmaAnimation from "../../Lotties/33564-figma-logo.json"
+
 const Start = (props) => {
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  const handleResize = () => {
+    if (window.innerWidth < 1024) {
+        setIsMobile(true)
+    } else {
+        setIsMobile(false)
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize)
+  })
+
   return (
     <ParallaxProvider>
     <div className={styles.container}>
-          <Parallax opacity={[5, -1]} translateY={[-100, 150]}>
+        {isMobile && 
+          <Parallax opacity={[5, -1]}>
+            <div className={`${styles.paralax} ${styles.top} ${styles.mobileImage}`} >
+              <div className={styles.paralaxContainer}>
+                  <Lottie
+                    loop
+                    animationData={devAnimation}
+                    play
+                    // style={{ width: 200, height: 300 }}
+                  />
+              </div>
+            </div>
+          </Parallax>
+        }
+        {!isMobile && 
+          <Parallax opacity={[5, -1]}>
             <div className={`${styles.paralax} ${styles.top}`} >
               <div className={styles.paralaxContainer}>
                   <Lottie
@@ -31,11 +62,10 @@ const Start = (props) => {
               </div>
             </div>
           </Parallax>
-
-
+        }
           <Parallax opacity={[7, -3]}
           translateY={[-400, 200]}>
-            <div className={styles.paralax}>
+            <div className={`${styles.paralax} ${styles.mobile}`}>
                 <Lottie
                         loop
                         animationData={reactAnimation}
@@ -47,7 +77,7 @@ const Start = (props) => {
 
 
           <Parallax translateX={[-80, 50]} opacity={[-2, 4]}>
-            <div className={`${styles.paralax} `} >
+            <div className={`${styles.paralax} ${styles.mobile}`} >
             <div className={styles.paralaxContent}>I have <span className={styles.highlight}>creative ideas</span> to make great design solutions</div>
             <Lottie
                 loop
@@ -59,7 +89,7 @@ const Start = (props) => {
 
 
           <Parallax translateX={[50, -80]} opacity={[5, -2] }>
-          <div className={styles.paralax} >
+          <div className={`${styles.paralax} ${styles.mobile}`}>
             <Lottie
                 loop
                 animationData={workAnimation}
@@ -71,8 +101,8 @@ const Start = (props) => {
           </Parallax>
 
           <Parallax translateY={[100, -100]} opacity={[-2, 5]}>
-            <div className={`${styles.paralax}`} >
-            <div className={styles.paralaxContent}><span className={styles.highlight}>Responsiveness</span> for every device!</div>
+            <div className={`${styles.paralax} ${styles.mobile}`} >
+            <div className={styles.paralaxContent}><span className={styles.highlight}>Responsive</span> on every device!</div>
               <Lottie
                 loop
                 animationData={responsiveAnimation}
@@ -83,7 +113,7 @@ const Start = (props) => {
 
           <Parallax translateY={[-50, 40]}
                   opacity={[-2, 4]}                 >
-            <div className={styles.paralax} >
+            <div className={`${styles.paralax} ${styles.mobile}`} >
             <Lottie
                 loop
                 animationData={wordpressAnimation}
@@ -142,8 +172,8 @@ const Start = (props) => {
 
 
           <Parallax  translateX={[100, -100]}
-                  strength={-200}>
-            <div className={styles.paralax} >
+                  opacity={[4, -1]}>
+            <div className={`${styles.paralax} ${styles.mobile}`} >
               <div className={styles.paralaxContainer}>
                 <Lottie
                       loop
@@ -161,9 +191,29 @@ const Start = (props) => {
               </div>
             </div>
           </Parallax>
-
+        {isMobile && 
           <a href="https://www.linkedin.com/in/rafaelcardosouk/" className={` ${styles.email}`}> 
-      
+            <Parallax 
+                    translateY={[300, 0]}
+                    scale= {[1, 6, 'easeInQuad']}>
+              <div className={`${styles.paralax} ${styles.noBackground}`} >
+              <Lottie
+                        loop
+                        animationData={emailAnimation}
+                        play
+                  />
+              </div>
+            </Parallax>
+            <Parallax >
+              <div className={`${styles.paralax} ${styles.contact}`} >
+                <div className={styles.paralaxContainer}>
+                </div>
+              </div>
+            </Parallax>
+           </a>
+        } 
+        {!isMobile && 
+          <a href="https://www.linkedin.com/in/rafaelcardosouk/" className={` ${styles.email}`}> 
             <Parallax 
                     translateY={[300, 300]}
                     scale= {[3, 8, 'easeInQuad']}>
@@ -174,13 +224,10 @@ const Start = (props) => {
                         play
                   />
               </div>
-              
             </Parallax>
-            
             <Parallax >
               <div className={`${styles.paralax} ${styles.contact}`} >
                 <div className={styles.paralaxContainer}>
-
                 </div>
               </div>
             </Parallax>
@@ -191,7 +238,7 @@ const Start = (props) => {
               </div>
             </Parallax>
            </a>
-          
+        } 
     </div>
     </ParallaxProvider>
   );

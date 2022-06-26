@@ -18,6 +18,7 @@
 }
 .paralax{
     background-color: white;
+    padding: 0rem 2rem;
     margin-top: 3rem;
     border-radius: 2rem;
     display: flex;
@@ -25,7 +26,9 @@
     height: 25rem;
     width: 50vw;
 }
-
+.paralax > div {
+    max-width: 80%;
+}
 .top{
     margin-top: unset;
     background-color: unset;
@@ -67,36 +70,34 @@
 .rotate{
     max-width: 150px;
 }
-
-@media only screen and (max-width: 1300px) {
-    .paralax{
-        width: 80vw;
-    }
-    .paralaxContent{
-        font-size:1.5rem;
-        padding: 2rem;
-    }
-  }
-
+.mobileImage{
+    width: 100vw;
+}
 
   @media only screen and (max-width: 1024px) {
     .paralax{
         width: 70vw;
+        padding: 0rem 2rem;
     }
+    .mobile{
+        height: 100%;
+        
+    }
+    
     .paralaxContent{
         font-size:1.3rem;
         padding: 0.5rem 2rem;
+        width: 100%;
     }
-  }
-
-  @media only screen and (max-width: 1024px) {
-    .paralax{
-        width: 70vw;
+    .paralaxContainer{
+        display: flex;
+        flex-direction: column;
     }
-    .paralaxContent{
-        width: 25rem;
-        font-size:1.6rem;
-        padding: 0.5rem 2rem;
+    .paralaxContainer > div > svg{
+        max-height: 20rem;
+    }
+    .email{
+        margin-bottom: 15rem;
     }
   }
 
@@ -104,29 +105,40 @@
     .paralax{
         padding: 0rem 2rem;
     }
+    .paralax > div {
+        width: 80%;
+    }
     .paralaxContent{
-        width: 25rem;
         font-size:1.5rem;
         padding: 0.5rem 2rem;
+    }
+    .email{
+        margin-bottom: 10rem;
     }
   }
   @media only screen and (max-width: 480px) {
     .paralax{
-        width: 80vw;
         padding: 0rem 2rem;
     }
     .paralaxContent{
         font-size:1.2rem;
         padding: 0.5rem 0rem;
     }
-    
+    .email{
+        margin-bottom: 5em;
+    }
   }
   @media only screen and (max-width: 380px) {
     .paralax{
         width: 70vw;
     }
-
+    .mobileImage{
+        width: 90vw;
+    }
     .paralaxContent{
         font-size:1.1rem;
+    }
+    .email{
+        margin-bottom: unset;
     }
   }

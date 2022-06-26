@@ -23,6 +23,7 @@
     border-radius: 2rem;
     display: flex;
     justify-content: center;
+    align-items: center;
     height: 25rem;
     width: 50vw;
 }
@@ -73,7 +74,10 @@
 .mobileImage{
     width: 100vw;
 }
+@media only screen and (max-width: 1200px) {
 
+
+}
   @media only screen and (max-width: 1024px) {
     .paralax{
         width: 70vw;
@@ -85,7 +89,7 @@
     }
     
     .paralaxContent{
-        font-size:1.3rem;
+        font-size:1.5rem;
         padding: 0.5rem 2rem;
         width: 100%;
     }
@@ -94,7 +98,7 @@
         flex-direction: column;
     }
     .paralaxContainer > div > svg{
-        max-height: 20rem;
+        max-height: 15rem;
     }
     .email{
         margin-bottom: 15rem;

@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST={}
+self.__REACT_LOADABLE_MANIFEST={"Main.jsx -> ../components/Design/Start":{"id":"Main.jsx -> ../components/Design/Start","files":["static/chunks/src_components_Design_Start_jsx.js"]}}

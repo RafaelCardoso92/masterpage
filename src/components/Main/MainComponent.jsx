@@ -91,8 +91,8 @@ useEffect(() => {
             </div>
           </Parallax>
         }
-        <Parallax opacity={[-2, 4]}>
-          <Parallax translateX={[-80, 0]}opacity={[5, -2]}>
+        
+          <Parallax translateX={[-80, 0]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
                 <Lottie
                   loop
@@ -101,7 +101,6 @@ useEffect(() => {
                 />
             </div>
           </Parallax>
-        </Parallax>  
           <Parallax translateX={[50, 15]} translateY={[-120, -120]} opacity={[3, -2]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
               <div className={styles.paralaxTextWrap}>

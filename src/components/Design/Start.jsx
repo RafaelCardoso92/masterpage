@@ -49,7 +49,7 @@ const Start = (props) => {
             </div>
           </Parallax>
         }
-        {!isMobile && 
+        {!isMobile && <>
           <Parallax opacity={[5, -1]}>
             <div className={`${styles.paralax} ${styles.top}`} >
               <div className={styles.paralaxContainer}>
@@ -62,7 +62,8 @@ const Start = (props) => {
               </div>
             </div>
           </Parallax>
-        }
+
+       </> }
           <Parallax opacity={[7, -3]}
           translateY={[-400, 200]}>
             <div className={`${styles.paralax} ${styles.mobile}`}>

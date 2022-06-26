@@ -1,13 +1,15 @@
-import React from "react";
+import React, {Suspense} from "react";
 import styles from "./Main.module.css"
 import MainComponent from "../components/Main/MainComponent"
-import Start from "../components/Design/Start";
+const Start = React.lazy(() => import('../components/Design/Start'));
 const Menu = (props) => {
 
   return (
     <div className={styles.container}>
       <MainComponent/>
-      <Start/>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Start/>
+      </Suspense>
     </div>
   );
 }

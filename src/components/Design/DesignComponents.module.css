@@ -100,6 +100,11 @@
     .email{
         margin-bottom: 15rem;
     }
+    .horizontalScrollRight{
+        margin-top: 8rem;
+
+    
+    }
   }
 
   @media only screen and (max-width: 768px) {

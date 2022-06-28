@@ -40,10 +40,7 @@ const Start = (props) => {
             <div className={`${styles.paralax} ${styles.top} ${styles.mobileImage}`} >
               <div className={styles.paralaxContainer}>
                   <Lottie
-                    loop
                     animationData={devAnimation}
-                    play
-                    // style={{ width: 200, height: 300 }}
                   />
               </div>
             </div>
@@ -57,7 +54,6 @@ const Start = (props) => {
                     loop
                     animationData={devAnimation}
                     play
-                    // style={{ width: 200, height: 300 }}
                   />
               </div>
             </div>
@@ -80,23 +76,36 @@ const Start = (props) => {
           <Parallax translateX={[-80, 50]} opacity={[-2, 4]}>
             <div className={`${styles.paralax} ${styles.mobile}`} >
             <div className={styles.paralaxContent}>I have <span className={styles.highlight}>creative ideas</span> to make great design solutions</div>
+            {isMobile &&
+              <Lottie
+                animationData={ideaAnimation}
+              />
+            }
+            {!isMobile &&
             <Lottie
                 loop
                 animationData={ideaAnimation}
                 play
               />
+            }
             </div>
           </Parallax>
 
 
           <Parallax translateX={[50, -80]} opacity={[5, -2] }>
           <div className={`${styles.paralax} ${styles.mobile}`}>
+          {isMobile &&
+            <Lottie
+                animationData={workAnimation}
+              />
+          }            
+          {!isMobile &&
             <Lottie
                 loop
                 animationData={workAnimation}
                 play
-               
               />
+          }
               <div className={styles.paralaxContent}>I can then turn those ideas into <span className={styles.highlight}>reality</span>!</div>
             </div>
           </Parallax>
@@ -104,22 +113,36 @@ const Start = (props) => {
           <Parallax translateY={[100, -100]} opacity={[-2, 5]}>
             <div className={`${styles.paralax} ${styles.mobile}`} >
             <div className={styles.paralaxContent}><span className={styles.highlight}>Responsive</span> on every device!</div>
+            {isMobile &&
+              <Lottie
+                animationData={responsiveAnimation}
+              />
+            }
+            {!isMobile &&
               <Lottie
                 loop
                 animationData={responsiveAnimation}
                 play
               />
+            }
             </div>
           </Parallax>
 
           <Parallax translateY={[-50, 40]}
                   opacity={[-2, 4]}                 >
             <div className={`${styles.paralax} ${styles.mobile}`} >
-            <Lottie
+            {isMobile &&
+              <Lottie
+                animationData={wordpressAnimation}
+              />
+              }
+            {!isMobile &&
+              <Lottie
                 loop
                 animationData={wordpressAnimation}
                 play
               />
+              }
               <div className={styles.paralaxContent}>Want it in <span className={styles.highlight}>wordpress</span>? no problem!</div>
             </div>
           </Parallax>
@@ -128,46 +151,36 @@ const Start = (props) => {
 
           <Parallax translateX={[-50, 30]} >
             <div className={styles.horizontalScrollRight}>
-              <Parallax>
                 <div className={`${styles.paralax} ${styles.noBackground}`} >
                   <Parallax rotateY = {[0, 720]}>
                     <div  className={styles.rotate}>
                       <Lottie
-                          loop
                           animationData={figmaAnimation}
-                          play
                         />
                     </div>  
                   </Parallax>
                   <Parallax rotateY = {[0, 720]}>
                     <div  className={styles.rotate}>
                       <Lottie
-                          loop
                           animationData={nodeAnimation}
-                          play
                         />
                     </div>  
                   </Parallax>
                   <Parallax rotateY = {[0, 720]}>
                     <div  className={styles.rotate}>      
                       <Lottie
-                        loop
                         animationData={jiraAnimation}
-                        play
                       />
                     </div>  
                   </Parallax>    
                   <Parallax rotateY = {[0, 720]}>
                     <div  className={styles.rotate}>  
                       <Lottie
-                        loop
                         animationData={githubAnimation}
-                        play
                       />
                     </div>  
                   </Parallax>
                 </div>
-              </Parallax>
             </div>
           </Parallax>
 
@@ -176,19 +189,32 @@ const Start = (props) => {
                   opacity={[4, -1]}>
             <div className={`${styles.paralax} ${styles.mobile}`} >
               <div className={styles.paralaxContainer}>
+                {isMobile &&
                 <Lottie
-                      loop
-                      animationData={domainAnimation}
-                      play
-                />
+                  animationData={domainAnimation}
+                />                
+                }
+                {!isMobile &&
+                  <Lottie
+                    loop
+                    animationData={domainAnimation}
+                    play
+                  />                
+                }
                 
                   <div className={styles.paralaxContent}>From <span className={styles.highlight}>Domain search</span> to <span className={styles.highlight}>Webhosting</span>, I got you covered!</div>
-                
-                <Lottie
-                      loop
-                      animationData={hostingAnimation}
-                      play
-                />
+                {isMobile &&
+                  <Lottie
+                    animationData={hostingAnimation}
+                  />
+                }
+                {!isMobile &&
+                  <Lottie
+                    loop
+                    animationData={hostingAnimation}
+                    play
+                  />
+                }
               </div>
             </div>
           </Parallax>
@@ -219,11 +245,18 @@ const Start = (props) => {
                     translateY={[300, 300]}
                     scale= {[3, 8, 'easeInQuad']}>
               <div className={`${styles.paralax} ${styles.noBackground}`} >
-              <Lottie
-                        loop
-                        animationData={emailAnimation}
-                        play
-                  />
+              {isMobile &&
+                <Lottie
+                  animationData={emailAnimation}
+                />
+              }
+              {!isMobile &&
+                <Lottie
+                  loop
+                  animationData={emailAnimation}
+                  play
+                />
+              }
               </div>
             </Parallax>
             <Parallax >

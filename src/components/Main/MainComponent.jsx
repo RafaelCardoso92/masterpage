@@ -32,9 +32,7 @@ useEffect(() => {
                 <Parallax translateX={[-350, 50]} translateY={[-500, 100]} scale={[0.1, 3, 'easeInQuad']} opacity={[4, 0]}>
                 <div className={`${styles.paralax} ${styles.noBackground}`}>
                     <Lottie
-                      loop
                       animationData={loadingAnimation}
-                      play
                     />
                 </div>
               </Parallax>}
@@ -94,11 +92,18 @@ useEffect(() => {
         
           <Parallax translateX={[-80, 0]}>
             <div className={`${styles.paralax} ${styles.noBackground}`}>
+            {isMobile && 
+                <Lottie
+                  animationData={developerAnimation}
+                />
+            }
+            {!isMobile && 
                 <Lottie
                   loop
                   animationData={developerAnimation}
                   play
                 />
+            }
             </div>
           </Parallax>
           <Parallax translateX={[50, 15]} translateY={[-120, -120]} opacity={[3, -2]}>
@@ -122,9 +127,7 @@ useEffect(() => {
               <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow} ${styles.mobile}`}>
                     <h1>Check my designs</h1>
                   <Lottie
-                    loop
                     animationData={arrowAnimation}
-                    play
                     style={{ width: 100, height: 100 }}
                   />
               </div>

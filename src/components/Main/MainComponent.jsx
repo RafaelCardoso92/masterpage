@@ -5,9 +5,7 @@ import Lottie from 'react-lottie-player'
 import developerAnimation from "../../Lotties/lf30_editor_i5kczg39.json"
 import loadingAnimation from "../../Lotties/9844-loading-40-paperplane.json"
 import arrowAnimation from "../../Lotties/lf30_editor_4mne7z5r.json"
-
-
-
+import { useInView } from 'react-intersection-observer';
 const Main = (props) => {
 const [isMobile, setIsMobile] = useState(false)
 
@@ -19,14 +17,23 @@ const handleResize = () => {
   }
 }
 
+const { ref, inView, entry } = useInView({
+  /* Optional options */
+  threshold: 0,
+});
+
+useEffect(()=>{
+    //do something here when inView is true
+  if(inView){
+    props.setIsVisible(true)
+  }
+}, [inView])
+
 useEffect(() => {
   window.addEventListener("resize", handleResize)
 })
-
-
   return (
     <ParallaxProvider>
-        
     <div className={`${styles.container}`}>
         {isMobile && 
                 <Parallax translateX={[-350, 50]} translateY={[-500, 100]} scale={[0.1, 3, 'easeInQuad']} opacity={[4, 0]}>
@@ -124,7 +131,7 @@ useEffect(() => {
 
           {isMobile && 
             <Parallax translateY={[-80, -200]} scale={[0.5, 2, 'easeInQuad']} opacity={[2, -1]}>
-              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow} ${styles.mobile}`}>
+              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow} ${styles.mobile}`} ref={ref}>
                     <h1>Check my designs</h1>
                   <Lottie
                     animationData={arrowAnimation}
@@ -135,7 +142,7 @@ useEffect(() => {
           }  
           {!isMobile && 
             <Parallax translateY={[-80, -500]} scale={[1, 6, 'easeInQuad']} opacity={[2, -1]}>
-              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow}`}>
+              <div className={`${styles.paralax} ${styles.noBackground} ${styles.arrow}`} ref={ref}>
                     <h1>Check my designs</h1>
                   <Lottie
                     loop

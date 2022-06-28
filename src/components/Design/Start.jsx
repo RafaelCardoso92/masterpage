@@ -17,6 +17,7 @@ import nodeImage from "../../images/nodejs.png"
 import figmaImage from "../../images/figma.png"
 import reactImage from "../../images/React.png"
 import Image from 'next/image'
+
 const Start = (props) => {
 
   const [isMobile, setIsMobile] = useState(false)
@@ -32,10 +33,9 @@ const Start = (props) => {
   useEffect(() => {
     window.addEventListener("resize", handleResize)
   })
-
   return (
-    <ParallaxProvider>
-    <div className={styles.container}>
+     <ParallaxProvider>
+      <div className={styles.container}>
         {isMobile && 
           <Parallax opacity={[5, -1]}>
             <div className={`${styles.paralax} ${styles.top} ${styles.mobileImage}`} >
@@ -47,7 +47,7 @@ const Start = (props) => {
             </div>
           </Parallax>
         }
-        {!isMobile && <>
+        {!isMobile && 
           <Parallax opacity={[5, -1]}>
             <div className={`${styles.paralax} ${styles.top}`} >
               <div className={styles.paralaxContainer}>
@@ -59,8 +59,7 @@ const Start = (props) => {
               </div>
             </div>
           </Parallax>
-
-       </> }
+        }
           <Parallax opacity={[7, -3]}
           translateY={[-400, 200]}>
             <div className={`${styles.paralax} ${styles.mobile}`}>
@@ -150,43 +149,33 @@ const Start = (props) => {
             </div>
           </Parallax>
 
-{/* right */}
-
           <Parallax translateX={[-50, 30]} >
             <div className={styles.horizontalScrollRight}>
-                <div className={`${styles.paralax} ${styles.noBackground}`} >
-                  <Parallax>
-                    <div className={styles.rotate}>
+                <div className={`${styles.paralax} ${styles.noBackground} ${styles.alignment}`} >
+                    <div className={styles.imageContainer}>
                       <Image
                         src={githubImage} 
                         alt="github"
                       />
-                    </div>  
-                  </Parallax>
-                  <Parallax>
-                    <div  className={styles.rotate}>
+                    </div>
+                    <div className={styles.imageContainer}>
                       <Image
                         src={figmaImage} 
                         alt="figma"
                       />
-                    </div>  
-                  </Parallax>
-                  <Parallax>
-                    <div  className={styles.rotate}>      
+                    </div>
+                    <div className={styles.imageContainer}>  
                       <Image
                         src={nodeImage} 
                         alt="node"
                       />
-                    </div>  
-                  </Parallax>    
-                  <Parallax>
-                    <div  className={styles.rotate}>  
+                    </div>    
+                    <div className={styles.imageContainer}>
                       <Image
                         src={jiraImage} 
                         alt="jira"
                       />
-                    </div>  
-                  </Parallax>
+                    </div>    
                 </div>
             </div>
           </Parallax>
@@ -229,13 +218,11 @@ const Start = (props) => {
           <a href="https://www.linkedin.com/in/rafaelcardosouk/" className={` ${styles.email}`}> 
             <Parallax 
                     translateY={[300, 0]}
-                    scale= {[1, 3, 'easeInQuad']}>
+                    scale= {[0.2, 2, 'easeInQuad']}>
               <div className={`${styles.paralax} ${styles.noBackground}`} >
               <Lottie
-                        loop
-                        animationData={emailAnimation}
-                        play
-                  />
+                animationData={emailAnimation}
+              />
               </div>
             </Parallax>
             <Parallax >
@@ -252,18 +239,11 @@ const Start = (props) => {
                     translateY={[300, 300]}
                     scale= {[3, 8, 'easeInQuad']}>
               <div className={`${styles.paralax} ${styles.noBackground}`} >
-              {isMobile &&
-                <Lottie
-                  animationData={emailAnimation}
-                />
-              }
-              {!isMobile &&
                 <Lottie
                   loop
                   animationData={emailAnimation}
                   play
                 />
-              }
               </div>
             </Parallax>
             <Parallax >

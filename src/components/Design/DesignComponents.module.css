@@ -16,6 +16,13 @@
     display: flex;
     flex-direction: row;
 }
+.alignment{
+    display: flex;
+    align-items: center;
+}
+.imageContainer{
+    max-width: 200px;
+}
 .paralax{
     background-color: white;
     padding: 0rem 2rem;
@@ -26,9 +33,7 @@
     height: 25rem;
     width: 50vw;
 }
-.paralax > div {
-    max-width: 80%;
-}
+
 .top{
     margin-top: unset;
     background-color: unset;
@@ -67,9 +72,7 @@
 .contact{
     background-color: unset;
 }
-.rotate{
-    max-width: 150px;
-}
+
 .mobileImage{
     width: 100vw;
 }

@@ -1,15 +1,20 @@
-import React, {Suspense} from "react";
+import React, {useState} from "react";
 import styles from "./Main.module.css"
 import MainComponent from "../components/Main/MainComponent"
+
 const Start = React.lazy(() => import('../components/Design/Start'));
+
 const Menu = (props) => {
 
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div className={styles.container}>
-      <MainComponent/>
-      <Suspense fallback={<div>Loading...</div>}>
+      <MainComponent
+        setIsVisible={setIsVisible}
+      />
+      {isVisible &&
         <Start/>
-      </Suspense>
+      }
     </div>
   );
 }

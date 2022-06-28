@@ -222,7 +222,9 @@ const Start = (props) => {
                     scale= {[0.2, 2, 'easeInQuad']}>
               <div className={`${styles.paralax} ${styles.noBackground}`} >
               <Lottie
+                loop
                 animationData={emailAnimation}
+                play
               />
               </div>
             </Parallax>

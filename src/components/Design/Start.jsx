@@ -7,15 +7,16 @@ import responsiveAnimation from "../../Lotties/52421-adaptive-web-design.json"
 import ideaAnimation from "../../Lotties/lf30_editor_7lokitj0.json"
 import workAnimation from "../../Lotties/lf30_editor_9frj12dt.json"
 import reactAnimation from "../../Lotties/296-react-logo.json"
-import githubAnimation from "../../Lotties/lf30_editor_ykq9ghh9.json"
 import wordpressAnimation from "../../Lotties/69643-wordpress-logo-grow.json"
-import nodeAnimation from "../../Lotties/lf30_editor_s2sdzbo0.json"
-import jiraAnimation from "../../Lotties/33563-jira-logo-v2.json"
 import domainAnimation from "../../Lotties/29408-domain-whois.json"
 import hostingAnimation from "../../Lotties/29413-hosting.json"
 import emailAnimation from "../../Lotties/88708-email.json"
-import figmaAnimation from "../../Lotties/33564-figma-logo.json"
-
+import githubImage from "../../images/github.png"
+import jiraImage from "../../images/jira.png"
+import nodeImage from "../../images/nodejs.png"
+import figmaImage from "../../images/figma.png"
+import reactImage from "../../images/React.png"
+import Image from 'next/image'
 const Start = (props) => {
 
   const [isMobile, setIsMobile] = useState(false)
@@ -63,11 +64,21 @@ const Start = (props) => {
           <Parallax opacity={[7, -3]}
           translateY={[-400, 200]}>
             <div className={`${styles.paralax} ${styles.mobile}`}>
+            {isMobile && 
+              <Image
+                src={reactImage} 
+                alt="react"
+                width={250}
+                height={218}
+              />
+            }
+              {!isMobile && 
                 <Lottie
-                        loop
-                        animationData={reactAnimation}
-                        play
-                      />
+                  loop
+                  animationData={reactAnimation}
+                  play
+                />
+              }
                 <div className={styles.paralaxContent}>This website was made with <span className={styles.highlight}>React</span>!</div>
             </div>
           </Parallax>
@@ -128,21 +139,13 @@ const Start = (props) => {
             </div>
           </Parallax>
 
-          <Parallax translateY={[-50, 40]}
-                  opacity={[-2, 4]}                 >
+          <Parallax translateY={[-50, 40]} opacity={[-2, 4]}>
             <div className={`${styles.paralax} ${styles.mobile}`} >
-            {isMobile &&
-              <Lottie
-                animationData={wordpressAnimation}
-              />
-              }
-            {!isMobile &&
               <Lottie
                 loop
                 animationData={wordpressAnimation}
                 play
               />
-              }
               <div className={styles.paralaxContent}>Want it in <span className={styles.highlight}>wordpress</span>? no problem!</div>
             </div>
           </Parallax>
@@ -152,31 +155,35 @@ const Start = (props) => {
           <Parallax translateX={[-50, 30]} >
             <div className={styles.horizontalScrollRight}>
                 <div className={`${styles.paralax} ${styles.noBackground}`} >
-                  <Parallax rotateY = {[0, 720]}>
-                    <div  className={styles.rotate}>
-                      <Lottie
-                          animationData={figmaAnimation}
-                        />
+                  <Parallax>
+                    <div className={styles.rotate}>
+                      <Image
+                        src={githubImage} 
+                        alt="github"
+                      />
                     </div>  
                   </Parallax>
-                  <Parallax rotateY = {[0, 720]}>
+                  <Parallax>
                     <div  className={styles.rotate}>
-                      <Lottie
-                          animationData={nodeAnimation}
-                        />
+                      <Image
+                        src={figmaImage} 
+                        alt="figma"
+                      />
                     </div>  
                   </Parallax>
-                  <Parallax rotateY = {[0, 720]}>
+                  <Parallax>
                     <div  className={styles.rotate}>      
-                      <Lottie
-                        animationData={jiraAnimation}
+                      <Image
+                        src={nodeImage} 
+                        alt="node"
                       />
                     </div>  
                   </Parallax>    
-                  <Parallax rotateY = {[0, 720]}>
+                  <Parallax>
                     <div  className={styles.rotate}>  
-                      <Lottie
-                        animationData={githubAnimation}
+                      <Image
+                        src={jiraImage} 
+                        alt="jira"
                       />
                     </div>  
                   </Parallax>

@@ -75,6 +75,50 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "../shared/lib/head":
+/*!***********************************************!*\
+  !*** external "next/dist/shared/lib/head.js" ***!
+  \***********************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/head.js");
+
+/***/ }),
+
+/***/ "../shared/lib/image-config-context":
+/*!***************************************************************!*\
+  !*** external "next/dist/shared/lib/image-config-context.js" ***!
+  \***************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config-context.js");
+
+/***/ }),
+
+/***/ "../shared/lib/image-config":
+/*!*******************************************************!*\
+  !*** external "next/dist/shared/lib/image-config.js" ***!
+  \*******************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/image-config.js");
+
+/***/ }),
+
+/***/ "../shared/lib/utils":
+/*!************************************************!*\
+  !*** external "next/dist/shared/lib/utils.js" ***!
+  \************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("next/dist/shared/lib/utils.js");
+
+/***/ }),
+
 /***/ "next/head":
 /*!****************************!*\
   !*** external "next/head" ***!

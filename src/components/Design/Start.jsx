@@ -35,6 +35,7 @@ const Start = (props) => {
   })
   return (
      <ParallaxProvider>
+      {props.isVisible &&
       <div className={styles.container}>
         {isMobile && 
           <Parallax opacity={[5, -1]}>
@@ -261,6 +262,7 @@ const Start = (props) => {
            </a>
         } 
     </div>
+    }
     </ParallaxProvider>
   );
 }

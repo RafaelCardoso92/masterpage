@@ -12,9 +12,9 @@ const Menu = (props) => {
       <MainComponent
         setIsVisible={setIsVisible}
       />
-      {isVisible &&
-        <Start/>
-      }
+        <Start
+        isVisible={isVisible}
+        />
     </div>
   );
 }

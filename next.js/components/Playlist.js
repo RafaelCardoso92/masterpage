@@ -1,13 +1,10 @@
 // components/Playlist.js
-import React, { useState } from "react";
+import React from "react";
 import YouTube from "react-youtube";
 import styles from "./styles.module.css";
-const Playlist = ({ videos }) => {
-  const [currentVideo, setCurrentVideo] = useState(videos[0].id);
 
-  const onVideoSelect = (videoId) => {
-    setCurrentVideo(videoId);
-  };
+const Playlist = ({ videos }) => {
+  const currentVideo = videos[0].id;
 
   return (
     <div>

@@ -13,7 +13,7 @@ const Explore = () => {
   const [active, setActive] = useState("frontend");
 
   return (
-    <section className={`${styles.paddings}`} id="explore">
+    <section className={`${styles.paddings}`}>
       <motion.div
         variants={staggerContainer}
         initial="hidden"

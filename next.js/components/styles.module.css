@@ -1,0 +1,10 @@
+.youtube {
+    width: 100%; /* Set the width to 100% of its container */
+  }
+
+  .youtube > iframe{
+    width: 200px;
+    max-height: 200px; 
+    border-radius: 50px; /* Apply the border radius */
+
+ }

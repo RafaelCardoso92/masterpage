@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import styles from "../styles";
 import { staggerContainer, fadeIn, planetVariants } from "../utils/motion";
 import { StartSteps, TitleText, TypingText } from "../components";
-
+import Image from "next/image";
 import { startingFeatures } from "../constants";
 
 const GetStarted = () => (
@@ -20,7 +20,9 @@ const GetStarted = () => (
         variants={planetVariants("left")}
         className={`${styles.flexCenter} flex-1`}
       >
-        <img
+        <Image
+          width={500}
+          height={500}
           src="/wordpress.png"
           alt="Get-Started"
           className="w-[100%] h-[100%] object-content"
@@ -31,7 +33,7 @@ const GetStarted = () => (
         className="flex-[0.75] flex justify-center flex-col"
       >
         <TypingText title="| Wordpress" />
-        <TitleText title={<> Crafting pages with Creativity </>} />
+        <TitleText title={<> Creatively crafting pages </>} />
         <div className="mt-[31px] flex flex-col max-w-[370px] gap-[24px]">
           {startingFeatures.map((features, index) => (
             <StartSteps key={features} number={index + 1} text={features} />

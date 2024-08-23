@@ -6,7 +6,7 @@ import styles from "../styles";
 import { newFeatures } from "../constants";
 import { NewFeatures, TitleText, TypingText } from "../components";
 import { planetVariants, staggerContainer, fadeIn } from "../utils/motion";
-
+import Image from "next/image";
 const WhatsNew = () => (
   <section className={`${styles.paddings} relative z-10`}>
     <motion.div
@@ -33,7 +33,9 @@ const WhatsNew = () => (
         variants={planetVariants("right")}
         className={`flex-1 ${styles.flexCenter}`}
       >
-        <img
+        <Image
+          width={500}
+          height={400}
           src="/nextjs.svg"
           alt="get-started"
           className="w-[90%] h-[90%] object-contain"

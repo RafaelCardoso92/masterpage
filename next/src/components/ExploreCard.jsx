@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { fadeIn } from "../utils/motion";
-
+import Image from "next/image";
 const ExploreCard = ({
   id,
   imgUrl,
@@ -19,7 +19,9 @@ const ExploreCard = ({
     } flex items-center justify-center min-w-[170px] h-[700px] transition-[flex] duration-[0.7s] ease-out-flex cursor-pointer`}
     onClick={() => handleClick(id)}
   >
-    <img
+    <Image
+      height={700}
+      width={170}
       src={imgUrl}
       alt={title}
       className="absolute w-auto h-full object-cover rounded-[24px]"

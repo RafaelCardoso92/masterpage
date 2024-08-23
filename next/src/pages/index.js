@@ -1,7 +1,6 @@
 "use client";
 
 import { Footer, Navbar } from "../components";
-import { useEffect } from "react";
 
 import {
   About,
@@ -13,11 +12,6 @@ import {
   WhatsNew,
 } from "../sections";
 export default function Home() {
-  useEffect(() => {
-    const tag = document.createElement("div");
-    tag.innerHTML = "Hello, World!";
-    document.body.appendChild(tag);
-  }, []);
   const bg = {
     backgroundColor: "rgb(3 57 122)",
   };

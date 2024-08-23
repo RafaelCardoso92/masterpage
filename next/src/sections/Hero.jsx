@@ -26,7 +26,7 @@ const videos = [
   // Add more videos as needed
 ];
 
-const Hero = () => (
+export default function Hero() {
   <section className={`${styles.yPaddings} sm:pl-16 pl-6`}>
     <motion.div
       variants={staggerContainer}
@@ -52,7 +52,5 @@ const Hero = () => (
         </div>
       </motion.div>
     </motion.div>
-  </section>
-);
-
-export default Hero;
+  </section>;
+}

@@ -21,7 +21,7 @@ const ExploreCard = ({
   >
     <Image
       height={700}
-      width={170}
+      width={500}
       src={imgUrl}
       alt={title}
       className="absolute w-auto h-full object-cover rounded-[24px]"

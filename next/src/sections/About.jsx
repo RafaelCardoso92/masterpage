@@ -24,7 +24,7 @@ const About = () => (
       >
         <span className="font-extrabold">{"Hello, I'm Rafael"}</span>
         {
-          ", a passionate developer with a background in javascript, typescript, react, Next.js, CSS/Sass. I've become deeply immersed in crafting robust, scalable web applications using powerful frameworks. I've honed my skills in leveraging Next.js's capabilities, such as server-side rendering, static site generation, and API routes, to deliver high-performance applications that prioritize both speed and user experience. Beyond technical expertise"
+          ", a passionate developer with a background in javascript, typescript, react, Next.js, CSS/Sass. Beyond technical expertise"
         }
         ,{" "}
         <span className="font-extrabold">

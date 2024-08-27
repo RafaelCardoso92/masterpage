@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { fadeIn } from "../utils/motion";
+
 import styles from "../styles";
 import { slideIn, staggerContainer, textVariant } from "../utils/motion";
 import Lottie from "react-lottie";
@@ -26,7 +28,7 @@ const videos = [
   // Add more videos as needed
 ];
 
-export default function Hero() {
+const Hero = () => (
   <section className={`${styles.yPaddings} sm:pl-16 pl-6`}>
     <motion.div
       variants={staggerContainer}
@@ -52,5 +54,15 @@ export default function Hero() {
         </div>
       </motion.div>
     </motion.div>
-  </section>;
-}
+    <div className="w-full flex  justify-center">
+      <motion.img
+        variants={fadeIn("up", "tween", 0.3, 1)}
+        src="/arrow-down.svg"
+        alt="arrow-down"
+        className="w-[18px] h-[28px] object-contain mt-[28px]"
+      />
+    </div>
+  </section>
+);
+
+export default Hero;

@@ -1,4 +1,29 @@
-export const exploreWorlds = [
+export interface ExploreWorld {
+  id: string;
+  imgUrl: string;
+  title: string;
+  text: string;
+}
+
+export interface NewFeature {
+  imgUrl: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface Insight {
+  imgUrl: string;
+  title: string;
+  subtitle: string;
+}
+
+export interface Social {
+  name: string;
+  url: string;
+  link: string;
+}
+
+export const exploreWorlds: ExploreWorld[] = [
   {
     id: "react",
     imgUrl: "/react.png",
@@ -31,12 +56,12 @@ export const exploreWorlds = [
   },
 ];
 
-export const startingFeatures = [
+export const startingFeatures: string[] = [
   "I can create pages using the most popular builders and plugins",
   "Crafting WordPress Websites with SEO Mastery: Elevating Online Visibility and Performance to New Heights.",
 ];
 
-export const newFeatures = [
+export const newFeatures: NewFeature[] = [
   {
     imgUrl: "/fast.svg",
     title: "The fastest pages",
@@ -49,7 +74,7 @@ export const newFeatures = [
   },
 ];
 
-export const insights = [
+export const insights: Insight[] = [
   {
     imgUrl: "/idea.svg",
     title: "Passion for Problem Solving",
@@ -70,10 +95,10 @@ export const insights = [
   },
 ];
 
-export const socials = [
+export const socials: Social[] = [
   {
     name: "linkedin",
     url: "/linkedin.svg",
-    link: "http://www.linkedin.com/in/rafaelcardosouk/",
+    link: "https://www.linkedin.com/in/rafaelcardosouk/",
   },
 ];

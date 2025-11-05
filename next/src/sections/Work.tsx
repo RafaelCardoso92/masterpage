@@ -8,30 +8,48 @@ import { TiltCard } from "../components";
 const projects = [
   {
     id: 1,
-    title: "E-Commerce Platform",
+    title: "Case Analyser",
     description:
-      "A modern, high-performance e-commerce solution built with Next.js and Stripe integration.",
-    tags: ["Next.js", "TypeScript", "Stripe", "Tailwind"],
-    image: "/placeholder-project.jpg",
-    link: "#",
+      "Comprehensive divorce case management platform with intelligent analytics and automated workflows for legal professionals.",
+    tags: ["Next.js", "TypeScript", "PostgreSQL", "Docker"],
+    image: "/projects/caseanalyser.png",
+    link: "https://caseanalyser.co.uk",
   },
   {
     id: 2,
-    title: "SaaS Dashboard",
+    title: "Doncaster Road Garage",
     description:
-      "Intuitive analytics dashboard with real-time data visualization and user management.",
-    tags: ["React", "Node.js", "MongoDB", "Chart.js"],
-    image: "/placeholder-project.jpg",
-    link: "#",
+      "Modern automotive service website featuring online booking, service tracking, and expert auto repair solutions in Sheffield.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    image: "/projects/garage.png",
+    link: "https://garage.rafaelcardoso.co.uk",
   },
   {
     id: 3,
-    title: "Portfolio Website",
+    title: "Let Rent",
     description:
-      "Creative portfolio showcase with smooth animations and stunning visual effects.",
-    tags: ["Next.js", "Framer Motion", "GSAP"],
-    image: "/placeholder-project.jpg",
-    link: "#",
+      "Elegant property rental management platform with advanced search, filtering, and modern UI for seamless tenant experience.",
+    tags: ["Next.js", "Sanity CMS", "TypeScript"],
+    image: "/projects/let.png",
+    link: "https://let.rafaelcardoso.co.uk",
+  },
+  {
+    id: 4,
+    title: "Meagan Portfolio",
+    description:
+      "Creative portfolio showcase with stunning animations and visual effects, highlighting design excellence and modern web capabilities.",
+    tags: ["Next.js", "Framer Motion", "Tailwind"],
+    image: "/projects/meags.png",
+    link: "https://meags.rafaelcardoso.co.uk",
+  },
+  {
+    id: 5,
+    title: "Electric",
+    description:
+      "Modern electrical services platform showcasing professional solutions with sleek design and intuitive user experience.",
+    tags: ["Next.js", "TypeScript", "Tailwind"],
+    image: "/projects/electric.png",
+    link: "https://electric.rafaelcardoso.co.uk",
   },
 ];
 
@@ -60,7 +78,7 @@ const Work = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <TiltCard key={project.id}>
               <motion.div
@@ -78,21 +96,16 @@ const Work = () => {
                     scale: hoveredIndex === index ? 1.1 : 1,
                   }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
-                  className="w-full h-full bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center"
+                  className="w-full h-full relative"
                 >
-                  <svg
-                    className="w-20 h-20 text-white/20"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-transparent" />
                 </motion.div>
 
                 {}

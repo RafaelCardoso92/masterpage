@@ -12,13 +12,15 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP Router (redirect to HTTPS)
-      - "traefik.http.routers.masterpage-http.rule=Host(`rafaelcardoso.co.uk`)"
+      - "traefik.http.routers.masterpage-http.rule=Host(`rafaelcardoso.co.uk`) || Host(`www.rafaelcardoso.co.uk`)"
       - "traefik.http.routers.masterpage-http.entrypoints=http"
       - "traefik.http.routers.masterpage-http.middlewares=https-redirect"
       # HTTPS Router
-      - "traefik.http.routers.masterpage.rule=Host(`rafaelcardoso.co.uk`)"
+      - "traefik.http.routers.masterpage.rule=Host(`rafaelcardoso.co.uk`) || Host(`www.rafaelcardoso.co.uk`)"
       - "traefik.http.routers.masterpage.entrypoints=https"
       - "traefik.http.routers.masterpage.tls.certresolver=cloudflare"
+      - "traefik.http.routers.masterpage.tls.domains[0].main=rafaelcardoso.co.uk"
+      - "traefik.http.routers.masterpage.tls.domains[0].sans=www.rafaelcardoso.co.uk"
       - "traefik.http.routers.masterpage.middlewares=default-security-headers@file"
       # Service
       - "traefik.http.services.masterpage.loadbalancer.server.port=3000"

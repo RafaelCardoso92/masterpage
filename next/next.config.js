@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+
 const nextConfig = {
   output: 'standalone',
   images: {
@@ -23,7 +23,7 @@ const nextConfig = {
   },
   poweredByHeader: false,
   compress: true,
-  // Generate static sitemap
+  
   async headers() {
     return [
       {

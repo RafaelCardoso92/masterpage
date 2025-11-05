@@ -71,7 +71,7 @@ const Work = () => {
                 onMouseLeave={() => setHoveredIndex(null)}
                 className="group relative card-glass overflow-hidden"
               >
-              {/* Image Container */}
+              {}
               <div className="relative h-64 bg-dark-200 overflow-hidden">
                 <motion.div
                   animate={{
@@ -95,7 +95,7 @@ const Work = () => {
                   </svg>
                 </motion.div>
 
-                {/* Overlay on hover */}
+                {}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: hoveredIndex === index ? 1 : 0 }}
@@ -110,7 +110,7 @@ const Work = () => {
                 </motion.div>
               </div>
 
-              {/* Content */}
+              {}
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-white mb-3">
                   {project.title}
@@ -119,7 +119,7 @@ const Work = () => {
                   {project.description}
                 </p>
 
-                {/* Tags */}
+                {}
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span

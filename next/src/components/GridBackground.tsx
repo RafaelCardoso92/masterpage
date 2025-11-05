@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const GridBackground = () => {
   return (
     <div className="fixed inset-0 z-10 overflow-hidden pointer-events-none">
-      {/* Dot Grid Pattern */}
+      {}
       <div
         className="absolute inset-0 opacity-[0.15]"
         style={{

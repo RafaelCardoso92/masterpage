@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Apple-inspired Design System */
+
 @layer base {
   * {
     @apply antialiased;
@@ -28,12 +28,12 @@
 }
 
 @layer components {
-  /* Container */
+  
   .container-custom {
     @apply w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
   }
 
-  /* Buttons */
+  
   .btn-primary {
     @apply inline-flex items-center justify-center px-8 py-3 text-base font-medium rounded-full
            bg-accent text-white transition-all duration-300 ease-apple relative
@@ -57,7 +57,7 @@
     box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 255, 255, 0.1);
   }
 
-  /* Cards */
+  
   .card-glass {
     @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl
            transition-all duration-500 ease-apple;
@@ -69,19 +69,19 @@
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 40px rgba(255, 255, 255, 0.05);
   }
 
-  /* Text Gradients */
+  
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/60;
   }
 
-  /* Section */
+  
   .section {
     @apply py-section;
   }
 }
 
 @layer utilities {
-  /* Smooth Animations */
+  
   .animate-delay-100 {
     animation-delay: 100ms;
   }
@@ -94,18 +94,18 @@
     animation-delay: 300ms;
   }
 
-  /* Backdrop Blur */
+  
   .glass {
     @apply bg-white/5 backdrop-blur-xl;
   }
 
-  /* Text Balance */
+  
   .text-balance {
     text-wrap: balance;
   }
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -122,12 +122,12 @@
   @apply bg-white/30;
 }
 
-/* Smooth transitions for all interactive elements */
+
 button, a, input, textarea {
   @apply transition-all duration-300 ease-apple;
 }
 
-/* Performance optimizations */
+
 .will-change-transform {
   will-change: transform;
 }
@@ -136,7 +136,7 @@ button, a, input, textarea {
   will-change: opacity;
 }
 
-/* GPU acceleration for animations */
+
 .gpu-accelerated {
   transform: translateZ(0);
   backface-visibility: hidden;

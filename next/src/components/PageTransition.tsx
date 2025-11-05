@@ -25,7 +25,7 @@ const PageTransition = () => {
           transition={{ duration: 0.5, ease: "easeInOut" }}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-dark"
         >
-          {/* Animated Logo or Loading Text */}
+          {}
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -33,14 +33,14 @@ const PageTransition = () => {
             transition={{ duration: 0.5 }}
             className="relative"
           >
-            {/* Spinning Ring */}
+            {}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
               className="w-24 h-24 border-4 border-accent/20 border-t-accent rounded-full"
             />
 
-            {/* Center Dot */}
+            {}
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
@@ -48,7 +48,7 @@ const PageTransition = () => {
             />
           </motion.div>
 
-          {/* Reveal Curtains */}
+          {}
           <motion.div
             initial={{ scaleY: 0 }}
             exit={{ scaleY: 1 }}

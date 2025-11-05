@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const AnimatedGradient = () => {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden">
-      {/* Animated gradient orbs - optimized for performance */}
+      {}
       <motion.div
         animate={{
           x: [0, 100, 0],

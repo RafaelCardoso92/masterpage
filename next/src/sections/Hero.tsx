@@ -20,10 +20,10 @@ const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       id="home"
     >
-      {/* Animated Background */}
+      {}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-dark via-dark-100 to-dark-200" />
 
-      {/* Animated Circles */}
+      {}
       <motion.div
         style={{ y, opacity }}
         className="absolute inset-0 z-0 pointer-events-none"
@@ -32,7 +32,7 @@ const Hero = () => {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
       </motion.div>
 
-      {/* Content */}
+      {}
       <motion.div
         style={{ y, opacity }}
         className="container-custom relative z-20 text-center pt-20 px-4"
@@ -92,7 +92,7 @@ const Hero = () => {
           </motion.a>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

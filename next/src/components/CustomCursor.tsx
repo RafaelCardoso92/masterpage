@@ -19,8 +19,8 @@ const CustomCursor = () => {
     setIsMounted(true);
 
     const moveCursor = (e: MouseEvent) => {
-      // Use pageX/pageY to account for scroll, but since we're fixed positioned,
-      // clientX/clientY is actually correct. Just ensure proper offset.
+      
+      
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
       setIsVisible(true);
@@ -31,7 +31,7 @@ const CustomCursor = () => {
 
     window.addEventListener("mousemove", moveCursor, { passive: true });
 
-    // Add hover listeners to interactive elements
+    
     const interactiveElements = document.querySelectorAll("a, button, [role='button']");
     interactiveElements.forEach((el) => {
       el.addEventListener("mouseenter", handleMouseEnter);
@@ -48,16 +48,16 @@ const CustomCursor = () => {
   }, [cursorX, cursorY]);
 
   if (typeof window !== "undefined" && window.innerWidth < 768) {
-    return null; // Don't show on mobile
+    return null; 
   }
 
   if (!isMounted) {
-    return null; // Don't render until mounted to avoid hydration issues
+    return null; 
   }
 
   return (
     <>
-      {/* Main cursor */}
+      {}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[9999] mix-blend-difference will-change-transform"
         style={{
@@ -73,7 +73,7 @@ const CustomCursor = () => {
         <div className="w-full h-full border-2 border-white rounded-full" />
       </motion.div>
 
-      {/* Cursor dot */}
+      {}
       <motion.div
         className="fixed top-0 left-0 w-1 h-1 pointer-events-none z-[9999] bg-white rounded-full will-change-transform"
         style={{

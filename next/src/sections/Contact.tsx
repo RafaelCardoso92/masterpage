@@ -16,7 +16,7 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto text-center"
         >
-          {/* Background Gradient */}
+          {}
           <div className="absolute inset-0 z-0 bg-gradient-to-br from-accent/10 via-transparent to-transparent rounded-3xl blur-3xl" />
 
           <div className="relative card-glass p-8 sm:p-12 md:p-16">
@@ -33,7 +33,7 @@ const Contact = () => {
               new opportunities and interesting ideas.
             </p>
 
-            {/* Contact Options */}
+            {}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
               <motion.a
                 href="mailto:contact@rafaelcardoso.dev"
@@ -82,7 +82,7 @@ const Contact = () => {
               </motion.a>
             </div>
 
-            {/* CTA Button */}
+            {}
             <motion.a
               href="mailto:contact@rafaelcardoso.dev"
               whileHover={{ scale: 1.05 }}

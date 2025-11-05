@@ -48,7 +48,7 @@ const TiltCard: React.FC<TiltCardProps> = ({ children, className = "" }) => {
     setIsHovered(false);
   };
 
-  // Disable tilt effect on touch devices
+  
   if (isTouchDevice) {
     return <div className={className}>{children}</div>;
   }

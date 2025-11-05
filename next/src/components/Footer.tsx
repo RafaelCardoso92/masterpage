@@ -42,7 +42,7 @@ const Footer = () => {
     <footer className="relative border-t border-white/10 bg-dark/40 backdrop-blur-sm z-20">
       <div className="container-custom py-12">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {/* Brand */}
+          {}
           <div>
             <Link href="/">
               <motion.div
@@ -58,7 +58,7 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Quick Links */}
+          {}
           <div>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
@@ -75,7 +75,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Social */}
+          {}
           <div>
             <h3 className="text-white font-semibold mb-4">Connect</h3>
             <div className="flex gap-3">
@@ -97,7 +97,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-light-100 text-sm">
             &copy; {currentYear} Rafael Cardoso. All rights reserved.

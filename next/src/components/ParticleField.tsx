@@ -33,29 +33,29 @@ const ParticleField = () => {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Track mouse position
+    
     const handleMouseMove = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
-    // Create particles - reduced on mobile for performance
+    
     const isMobile = window.innerWidth < 768;
     const particleCount = isMobile ? 20 : 40;
     particlesRef.current = Array.from({ length: particleCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 1.5, // Larger particles
+      size: Math.random() * 3 + 1.5, 
       speedX: (Math.random() - 0.5) * 0.5,
       speedY: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random() * 0.4 + 0.4, // More visible (0.4 to 0.8)
+      opacity: Math.random() * 0.4 + 0.4, 
     }));
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particlesRef.current.forEach((particle, i) => {
-        // Mouse interaction - particles move away from cursor
+        
         const dx = mouseRef.current.x - particle.x;
         const dy = mouseRef.current.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -68,17 +68,17 @@ const ParticleField = () => {
           particle.y -= Math.sin(angle) * force * 3;
         }
 
-        // Update position
+        
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Wrap around edges
+        
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Draw particle
+        
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;

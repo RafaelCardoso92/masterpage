@@ -123,6 +123,7 @@ const MyVibe = () => {
   const heroRef = useRef(null);
   const isHeroInView = useInView(heroRef, { once: true });
   const [isLoading, setIsLoading] = useState(true);
+  const [activeTrackId, setActiveTrackId] = useState<string>(tracks[0].id);
 
   // Collect all image and audio URLs for preloading
   const allImageUrls = tracks.flatMap((track) => track.artistImages || [track.artistImage || ""]).filter(Boolean);
@@ -211,8 +212,9 @@ const MyVibe = () => {
             <ScrollMusicPlayer
               key={track.id}
               track={track}
-              isActive={true}
+              isActive={activeTrackId === track.id}
               index={index}
+              onBecomeActive={() => setActiveTrackId(track.id)}
             />
           ))}
         </div>

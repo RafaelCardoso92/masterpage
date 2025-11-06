@@ -21,9 +21,10 @@ interface ScrollMusicPlayerProps {
   track: Track;
   isActive: boolean;
   index: number;
+  onBecomeActive: () => void;
 }
 
-const ScrollMusicPlayerComponent = ({ track, isActive, index }: ScrollMusicPlayerProps) => {
+const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: ScrollMusicPlayerProps) => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -53,6 +54,32 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index }: ScrollMusicPlaye
 
   // Gentle zoom effect as you scroll through for visual interest
   const backgroundScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
+
+  // Detect when this section is in the center of the viewport and make it active
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If more than 40% of this section is visible, make it active
+          if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+            onBecomeActive();
+          }
+        });
+      },
+      {
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+        rootMargin: "-20% 0px -20% 0px", // Section needs to be near center
+      }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [onBecomeActive]);
 
   // Handle fade in/out based on scroll position
   useEffect(() => {

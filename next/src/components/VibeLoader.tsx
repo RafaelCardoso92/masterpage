@@ -38,8 +38,27 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
   }, []);
 
   useEffect(() => {
-    const totalResources = imageUrls.length + audioUrls.length;
+    // Detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    // On iOS, skip audio preloading (won't work until user interaction anyway)
+    const totalResources = isIOS ? imageUrls.length : imageUrls.length + audioUrls.length;
     let loadedResources = 0;
+    let hasCompleted = false;
+
+    const completeLoading = () => {
+      if (hasCompleted) return;
+      hasCompleted = true;
+
+      const elapsedTime = Date.now() - startTime;
+      const minDisplayTime = 2000;
+      const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
+      setTimeout(() => {
+        onLoadComplete();
+      }, remainingTime + 500);
+    };
 
     const updateProgress = () => {
       loadedResources++;
@@ -52,34 +71,41 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
       } else if (percentage < 50) {
         setLoadingText("Preparing artist images...");
       } else if (percentage < 75) {
-        setLoadingText("Loading audio tracks...");
+        setLoadingText(isIOS ? "Getting ready..." : "Loading audio tracks...");
       } else if (percentage < 95) {
         setLoadingText("Almost ready...");
       } else {
         setLoadingText("Get ready to vibe! 🎧");
       }
 
-      if (loadedResources === totalResources) {
-        // Ensure minimum display time of 2 seconds for better UX
-        const elapsedTime = Date.now() - startTime;
-        const minDisplayTime = 2000;
-        const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
-
-        setTimeout(() => {
-          onLoadComplete();
-        }, remainingTime + 500);
+      if (loadedResources >= totalResources) {
+        completeLoading();
       }
     };
+
+    // Maximum timeout to prevent infinite loading (8 seconds)
+    const maxLoadTimeout = setTimeout(() => {
+      console.warn('Loading timeout reached, forcing completion');
+      setProgress(100);
+      completeLoading();
+    }, 8000);
 
     // Preload images
     const imagePromises = imageUrls.map((url) => {
       return new Promise((resolve) => {
         const img = new Image();
+        const timeout = setTimeout(() => {
+          updateProgress();
+          resolve(null);
+        }, 3000); // 3 second timeout per image
+
         img.onload = () => {
+          clearTimeout(timeout);
           updateProgress();
           resolve(null);
         };
         img.onerror = () => {
+          clearTimeout(timeout);
           updateProgress();
           resolve(null);
         };
@@ -87,24 +113,41 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
       });
     });
 
-    // Preload audio
-    const audioPromises = audioUrls.map((url) => {
+    // Preload audio (skip on iOS)
+    const audioPromises = isIOS ? [] : audioUrls.map((url) => {
       return new Promise((resolve) => {
+        const timeout = setTimeout(() => {
+          updateProgress();
+          resolve(null);
+        }, 2000); // 2 second timeout per audio
+
         const audio = new Audio();
         audio.addEventListener("canplaythrough", () => {
+          clearTimeout(timeout);
           updateProgress();
           resolve(null);
-        });
+        }, { once: true });
         audio.addEventListener("error", () => {
+          clearTimeout(timeout);
           updateProgress();
           resolve(null);
-        });
+        }, { once: true });
         audio.src = url;
       });
     });
 
-    Promise.all([...imagePromises, ...audioPromises]);
-  }, [imageUrls, audioUrls, onLoadComplete]);
+    Promise.all([...imagePromises, ...audioPromises])
+      .finally(() => {
+        clearTimeout(maxLoadTimeout);
+        if (!hasCompleted) {
+          completeLoading();
+        }
+      });
+
+    return () => {
+      clearTimeout(maxLoadTimeout);
+    };
+  }, [imageUrls, audioUrls, onLoadComplete, startTime]);
 
   return (
     <motion.div

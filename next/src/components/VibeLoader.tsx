@@ -14,11 +14,26 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
   const [loadingText, setLoadingText] = useState("Loading your vibe...");
   const [startTime] = useState(Date.now());
 
-  // Prevent scrolling while loading
+  // Prevent scrolling while loading and lock to top
   useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo(0, 0);
+
+    // Lock scrolling
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '0';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.documentElement.style.overflow = 'hidden';
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.documentElement.style.overflow = '';
     };
   }, []);
 

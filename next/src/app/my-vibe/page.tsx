@@ -269,14 +269,18 @@ const MyVibe = () => {
         )}
       </AnimatePresence>
 
-      <PageTransition />
-      <CustomCursor />
-      <ScrollProgress />
-      <AnimatedGradient />
-      <ParticleField />
-      <GridBackground />
+      {!isLoading && (
+        <>
+          <PageTransition />
+          <CustomCursor />
+          <ScrollProgress />
+          <AnimatedGradient />
+          <ParticleField />
+          <GridBackground />
+        </>
+      )}
 
-      <main className="min-h-screen relative">
+      <main className={`min-h-screen relative ${isLoading ? 'hidden' : ''}`}>
         <Navbar />
 
         {/* Hero Section */}

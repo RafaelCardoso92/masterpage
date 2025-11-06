@@ -33,6 +33,7 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
   const [volume, setVolume] = useState(0.7);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isManuallyPaused, setIsManuallyPaused] = useState(false);
+  const hasSetInitialPosition = useRef(false); // Track if we've set the 1/5th position
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { margin: "-30% 0px -30% 0px", once: false });
 
@@ -56,6 +57,16 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
   // Gentle zoom effect as you scroll through for visual interest
   const backgroundScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
+
+  // Smooth volume control based on scroll position for fluid audio crossfading
+  // Volume peaks when track is centered (scrollYProgress = 0.5)
+  // Gradually fades out as user scrolls away
+  const scrollBasedVolume = useTransform(
+    scrollYProgress,
+    [0, 0.3, 0.5, 0.7, 1],      // Scroll positions
+    [0, 0.8, 1, 0.8, 0],         // Volume levels (0-1)
+    { clamp: true }
+  );
 
   // Detect when this section is in the center of the viewport and make it active
   useEffect(() => {
@@ -83,85 +94,36 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     };
   }, [onBecomeActive]);
 
-  // Handle fade in/out based on scroll position
+  // Handle play/pause based on scroll position (no manual fading - scroll-based volume handles it)
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    let fadeInterval: NodeJS.Timeout;
-
     // Immediately pause all other songs when this one becomes active
     if (isActive && isInView && !isManuallyPaused) {
-      // Pause all other audio elements immediately (mobile-friendly)
+      // Pause all other audio elements immediately
       const allAudioElements = document.querySelectorAll("audio");
       allAudioElements.forEach((otherAudio) => {
         if (otherAudio !== audio && !otherAudio.paused) {
-          // Fast fade out for mobile
-          const fadeOut = () => {
-            if (otherAudio.volume > 0.1) {
-              otherAudio.volume = Math.max(0, otherAudio.volume - 0.2);
-              requestAnimationFrame(fadeOut);
-            } else {
-              otherAudio.volume = 0;
-              otherAudio.pause();
-            }
-          };
-          fadeOut();
+          otherAudio.pause();
         }
       });
-    }
 
-    // Only auto-play if not manually paused
-    if (isInView && isActive && !isManuallyPaused) {
-      // Fade in
-      audio.volume = 0;
-
-      // Try to play with better error handling
+      // Try to play this audio
       const playPromise = audio.play();
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
-            // Auto-play started successfully
             setIsPlaying(true);
-
-            let currentVol = 0;
-            const targetVolume = volume;
-
-            fadeInterval = setInterval(() => {
-              currentVol += 0.05;
-              if (currentVol >= targetVolume) {
-                currentVol = targetVolume;
-                clearInterval(fadeInterval);
-              }
-              if (audio) {
-                audio.volume = currentVol;
-              }
-            }, 50);
           })
           .catch((error) => {
             // Auto-play was prevented (browser restriction)
-            // User needs to interact first
             console.log("Auto-play prevented, waiting for user interaction:", error);
 
             // Set up one-time click handler to enable playback
             const enableAudio = () => {
               audio.play().then(() => {
                 setIsPlaying(true);
-
-                let currentVol = 0;
-                const targetVolume = volume;
-
-                fadeInterval = setInterval(() => {
-                  currentVol += 0.05;
-                  if (currentVol >= targetVolume) {
-                    currentVol = targetVolume;
-                    clearInterval(fadeInterval);
-                  }
-                  if (audio) {
-                    audio.volume = currentVol;
-                  }
-                }, 50);
-
                 document.removeEventListener("click", enableAudio);
                 document.removeEventListener("touchstart", enableAudio);
               });
@@ -172,31 +134,26 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
           });
       }
     } else if (isPlaying && (!isInView || !isActive || isManuallyPaused)) {
-      // Faster fade out for better mobile experience (30ms vs 50ms)
-      let currentVol = audio.volume;
-
-      fadeInterval = setInterval(() => {
-        currentVol -= 0.1; // Faster fade (0.1 vs 0.05)
-        if (currentVol <= 0) {
-          currentVol = 0;
-          clearInterval(fadeInterval);
-          if (audio) {
-            audio.pause();
-            setIsPlaying(false);
-          }
-        }
-        if (audio) {
-          audio.volume = currentVol;
-        }
-      }, 30); // Faster interval (30ms vs 50ms)
+      // Simply pause - scroll-based volume already faded it out
+      audio.pause();
+      setIsPlaying(false);
     }
+  }, [isInView, isActive, isPlaying, isManuallyPaused]);
 
-    return () => {
-      if (fadeInterval) clearInterval(fadeInterval);
-    };
-  }, [isInView, isActive, volume, isPlaying, isManuallyPaused]);
+  // Apply scroll-based volume for smooth crossfading
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !isPlaying || isManuallyPaused) return;
 
-  // Update time
+    const unsubscribe = scrollBasedVolume.on("change", (v) => {
+      // Apply user's volume preference multiplied by scroll-based volume
+      audio.volume = v * volume;
+    });
+
+    return () => unsubscribe();
+  }, [scrollBasedVolume, isPlaying, isManuallyPaused, volume]);
+
+  // Update time and set initial position
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -204,18 +161,29 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     const updateTime = () => setCurrentTime(audio.currentTime);
     const updateDuration = () => {
       setDuration(audio.duration);
-      // Start audio at 1/5th (20%) of the song
-      if (audio.duration && audio.currentTime === 0) {
+      // Start audio at 1/5th (20%) of the song - only once
+      if (audio.duration && !hasSetInitialPosition.current) {
         audio.currentTime = audio.duration / 5;
+        hasSetInitialPosition.current = true;
+      }
+    };
+
+    // Also try to set position when audio is ready to play
+    const handleCanPlay = () => {
+      if (audio.duration && !hasSetInitialPosition.current) {
+        audio.currentTime = audio.duration / 5;
+        hasSetInitialPosition.current = true;
       }
     };
 
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
+    audio.addEventListener("canplay", handleCanPlay);
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
+      audio.removeEventListener("canplay", handleCanPlay);
     };
   }, []);
 

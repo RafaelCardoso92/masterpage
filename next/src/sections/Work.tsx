@@ -17,6 +17,24 @@ const projects = [
   },
   {
     id: 2,
+    title: "Bella Blog",
+    description:
+      "Elegant lifestyle blog celebrating beauty, fashion, wellness, and the art of living well. Features music integration and beautiful typography.",
+    tags: ["Next.js", "TypeScript", "API", "Markdown"],
+    image: "/projects/bella.png",
+    link: "https://bella.rafaelcardoso.co.uk",
+  },
+  {
+    id: 3,
+    title: "Cycofix Coffee",
+    description:
+      "Mobile bike repair service combined with authentic Venezuelan coffee. A unique blend of craftsmanship and hospitality on wheels.",
+    tags: ["Next.js", "Tailwind", "Framer Motion"],
+    image: "/projects/coffee.png",
+    link: "https://coffee.rafaelcardoso.co.uk",
+  },
+  {
+    id: 4,
     title: "Doncaster Road Garage",
     description:
       "Modern automotive service website featuring online booking, service tracking, and expert auto repair solutions in Sheffield.",
@@ -25,7 +43,7 @@ const projects = [
     link: "https://garage.rafaelcardoso.co.uk",
   },
   {
-    id: 3,
+    id: 5,
     title: "Let Rent",
     description:
       "Elegant property rental management platform with advanced search, filtering, and modern UI for seamless tenant experience.",
@@ -34,7 +52,7 @@ const projects = [
     link: "https://let.rafaelcardoso.co.uk",
   },
   {
-    id: 4,
+    id: 6,
     title: "Meagan Portfolio",
     description:
       "Creative portfolio showcase with stunning animations and visual effects, highlighting design excellence and modern web capabilities.",
@@ -43,7 +61,7 @@ const projects = [
     link: "https://meags.rafaelcardoso.co.uk",
   },
   {
-    id: 5,
+    id: 7,
     title: "Electric",
     description:
       "Modern electrical services platform showcasing professional solutions with sleek design and intuitive user experience.",

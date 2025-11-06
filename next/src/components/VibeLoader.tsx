@@ -14,6 +14,14 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
   const [loadingText, setLoadingText] = useState("Loading your vibe...");
   const [startTime] = useState(Date.now());
 
+  // Prevent scrolling while loading
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   useEffect(() => {
     const totalResources = imageUrls.length + audioUrls.length;
     let loadedResources = 0;

@@ -9,7 +9,8 @@ const navLinks = [
   { name: "Work", href: "#work" },
   { name: "About", href: "#about" },
   { name: "Skills", href: "#skills" },
-  { name: "Contact", href: "#contact" },
+  { name: "Talent", href: "/talent" },
+  { name: "My Vibe", href: "/my-vibe" },
 ];
 
 const Navbar = () => {

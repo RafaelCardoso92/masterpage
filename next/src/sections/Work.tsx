@@ -116,6 +116,8 @@ const Work = () => {
                 >
                   <a
                     href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn-secondary text-sm"
                   >
                     View Project

@@ -36,9 +36,6 @@ const GridBackground = () => {
         </defs>
         <rect width="100%" height="100%" fill="url(#grid)" />
       </svg>
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark/50 to-dark" />
     </div>
   );
 };

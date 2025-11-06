@@ -10,3 +10,8 @@ export { default as TextReveal } from "./TextReveal";
 export { default as GridBackground } from "./GridBackground";
 export { default as PageTransition } from "./PageTransition";
 export { default as StructuredData } from "./StructuredData";
+export { InteractiveTerminal } from "./InteractiveTerminal";
+export { LiveMetricsDashboard } from "./LiveMetricsDashboard";
+export { SkillConstellation } from "./SkillConstellation";
+export { InteractiveTimeline } from "./InteractiveTimeline";
+export { ScrollMusicPlayer } from "./ScrollMusicPlayer";

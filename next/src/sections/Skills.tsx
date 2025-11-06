@@ -10,6 +10,7 @@ const skills = [
     items: [
       { name: "React", level: 95 },
       { name: "Next.js", level: 90 },
+      { name: "Vue.js", level: 85 },
       { name: "TypeScript", level: 90 },
       { name: "Tailwind CSS", level: 95 },
     ],
@@ -18,18 +19,27 @@ const skills = [
     category: "Backend",
     items: [
       { name: "Node.js", level: 85 },
-      { name: "WordPress", level: 80 },
-      { name: "Drupal", level: 75 },
+      { name: "PHP", level: 80 },
+      { name: "PostgreSQL", level: 85 },
       { name: "REST APIs", level: 90 },
     ],
   },
   {
-    category: "Tools & Others",
+    category: "CMS & Content",
     items: [
-      { name: "Git", level: 90 },
-      { name: "Figma", level: 85 },
+      { name: "WordPress", level: 85 },
+      { name: "Sanity CMS", level: 80 },
+      { name: "Drupal", level: 75 },
       { name: "SEO", level: 85 },
-      { name: "Performance", level: 90 },
+    ],
+  },
+  {
+    category: "DevOps & Infrastructure",
+    items: [
+      { name: "Docker", level: 90 },
+      { name: "Server Administration", level: 90 },
+      { name: "Linux", level: 90 },
+      { name: "Git", level: 90 },
     ],
   },
 ];
@@ -58,7 +68,7 @@ const Skills = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {skills.map((category, categoryIndex) => (
             <TiltCard key={category.category}>
               <motion.div

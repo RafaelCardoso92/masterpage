@@ -90,6 +90,27 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
     let fadeInterval: NodeJS.Timeout;
 
+    // Immediately pause all other songs when this one becomes active
+    if (isActive && isInView && !isManuallyPaused) {
+      // Pause all other audio elements immediately (mobile-friendly)
+      const allAudioElements = document.querySelectorAll("audio");
+      allAudioElements.forEach((otherAudio) => {
+        if (otherAudio !== audio && !otherAudio.paused) {
+          // Fast fade out for mobile
+          const fadeOut = () => {
+            if (otherAudio.volume > 0.1) {
+              otherAudio.volume = Math.max(0, otherAudio.volume - 0.2);
+              requestAnimationFrame(fadeOut);
+            } else {
+              otherAudio.volume = 0;
+              otherAudio.pause();
+            }
+          };
+          fadeOut();
+        }
+      });
+    }
+
     // Only auto-play if not manually paused
     if (isInView && isActive && !isManuallyPaused) {
       // Fade in
@@ -151,11 +172,11 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
           });
       }
     } else if (isPlaying && (!isInView || !isActive || isManuallyPaused)) {
-      // Fade out when out of view, inactive, or manually paused
+      // Faster fade out for better mobile experience (30ms vs 50ms)
       let currentVol = audio.volume;
 
       fadeInterval = setInterval(() => {
-        currentVol -= 0.05;
+        currentVol -= 0.1; // Faster fade (0.1 vs 0.05)
         if (currentVol <= 0) {
           currentVol = 0;
           clearInterval(fadeInterval);
@@ -167,7 +188,7 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
         if (audio) {
           audio.volume = currentVol;
         }
-      }, 50);
+      }, 30); // Faster interval (30ms vs 50ms)
     }
 
     return () => {

@@ -94,23 +94,62 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     if (isInView && isActive && !isManuallyPaused) {
       // Fade in
       audio.volume = 0;
-      audio.play().catch(() => {});
 
-      let currentVol = 0;
-      const targetVolume = volume;
+      // Try to play with better error handling
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Auto-play started successfully
+            setIsPlaying(true);
 
-      fadeInterval = setInterval(() => {
-        currentVol += 0.05;
-        if (currentVol >= targetVolume) {
-          currentVol = targetVolume;
-          clearInterval(fadeInterval);
-        }
-        if (audio) {
-          audio.volume = currentVol;
-        }
-      }, 50);
+            let currentVol = 0;
+            const targetVolume = volume;
 
-      setIsPlaying(true);
+            fadeInterval = setInterval(() => {
+              currentVol += 0.05;
+              if (currentVol >= targetVolume) {
+                currentVol = targetVolume;
+                clearInterval(fadeInterval);
+              }
+              if (audio) {
+                audio.volume = currentVol;
+              }
+            }, 50);
+          })
+          .catch((error) => {
+            // Auto-play was prevented (browser restriction)
+            // User needs to interact first
+            console.log("Auto-play prevented, waiting for user interaction:", error);
+
+            // Set up one-time click handler to enable playback
+            const enableAudio = () => {
+              audio.play().then(() => {
+                setIsPlaying(true);
+
+                let currentVol = 0;
+                const targetVolume = volume;
+
+                fadeInterval = setInterval(() => {
+                  currentVol += 0.05;
+                  if (currentVol >= targetVolume) {
+                    currentVol = targetVolume;
+                    clearInterval(fadeInterval);
+                  }
+                  if (audio) {
+                    audio.volume = currentVol;
+                  }
+                }, 50);
+
+                document.removeEventListener("click", enableAudio);
+                document.removeEventListener("touchstart", enableAudio);
+              });
+            };
+
+            document.addEventListener("click", enableAudio, { once: true });
+            document.addEventListener("touchstart", enableAudio, { once: true });
+          });
+      }
     } else if (isPlaying && (!isInView || !isActive || isManuallyPaused)) {
       // Fade out when out of view, inactive, or manually paused
       let currentVol = audio.volume;
@@ -261,12 +300,13 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
       )}
 
       <div className="max-w-4xl w-full relative z-10">
-        {/* Audio Element with lazy loading */}
+        {/* Audio Element with metadata preload for better autoplay */}
         <audio
           ref={audioRef}
           src={track.audioPath}
           loop
-          preload={index === 0 ? "auto" : "none"}
+          preload={index < 3 ? "auto" : "metadata"}
+          playsInline
         />
 
         {/* Player Card */}

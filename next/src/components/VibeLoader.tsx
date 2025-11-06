@@ -12,6 +12,7 @@ interface VibeLoaderProps {
 const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) => {
   const [progress, setProgress] = useState(0);
   const [loadingText, setLoadingText] = useState("Loading your vibe...");
+  const [startTime] = useState(Date.now());
 
   useEffect(() => {
     const totalResources = imageUrls.length + audioUrls.length;
@@ -23,20 +24,27 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
       setProgress(percentage);
 
       // Update loading text based on progress
-      if (percentage < 30) {
+      if (percentage < 25) {
         setLoadingText("Loading your vibe...");
-      } else if (percentage < 60) {
+      } else if (percentage < 50) {
         setLoadingText("Preparing artist images...");
-      } else if (percentage < 90) {
+      } else if (percentage < 75) {
         setLoadingText("Loading audio tracks...");
-      } else {
+      } else if (percentage < 95) {
         setLoadingText("Almost ready...");
+      } else {
+        setLoadingText("Get ready to vibe! 🎧");
       }
 
       if (loadedResources === totalResources) {
+        // Ensure minimum display time of 2 seconds for better UX
+        const elapsedTime = Date.now() - startTime;
+        const minDisplayTime = 2000;
+        const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
         setTimeout(() => {
           onLoadComplete();
-        }, 500);
+        }, remainingTime + 500);
       }
     };
 
@@ -79,42 +87,102 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-dark"
+      transition={{ duration: 0.8 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-dark via-dark to-dark-200"
     >
-      <div className="max-w-md w-full px-8">
-        {/* Music Note Icon */}
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-accent/20 rounded-full"
+            initial={{
+              x: Math.random() * window.innerWidth,
+              y: Math.random() * window.innerHeight,
+            }}
+            animate={{
+              y: [null, Math.random() * window.innerHeight],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-md w-full px-8 relative z-10">
+        {/* Music Note Icon with pulsing glow */}
         <motion.div
           initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
+          animate={{
+            scale: 1,
+            rotate: 0,
+          }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-6xl text-accent mb-8 text-center"
+          className="relative text-6xl text-accent mb-8 text-center"
         >
-          🎵
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <div className="w-20 h-20 bg-accent/30 rounded-full blur-2xl" />
+          </motion.div>
+          <motion.span
+            animate={{
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="relative inline-block"
+          >
+            🎵
+          </motion.span>
         </motion.div>
 
-        {/* Loading Text */}
+        {/* Loading Text with fade animation */}
         <motion.p
+          key={loadingText}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-light-100 text-center mb-8 text-lg"
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          className="text-light-100 text-center mb-8 text-lg font-medium"
         >
           {loadingText}
         </motion.p>
 
         {/* Progress Bar Container */}
         <div className="relative">
-          {/* Background bar */}
-          <div className="h-2 bg-dark-100 rounded-full overflow-hidden">
+          {/* Background bar with glow */}
+          <div className="h-3 bg-dark-100 rounded-full overflow-hidden relative">
+            {/* Glowing shadow under progress bar */}
+            <motion.div
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute -inset-1 bg-accent/20 blur-md"
+            />
             {/* Progress fill */}
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="h-full bg-gradient-to-r from-accent via-accent to-accent/80 rounded-full relative"
+              className="h-full bg-gradient-to-r from-accent via-purple-500 to-accent rounded-full relative overflow-hidden"
             >
-              {/* Animated glow effect */}
+              {/* Animated shimmer effect */}
               <motion.div
                 animate={{
                   x: ["-100%", "200%"],
@@ -124,35 +192,70 @@ const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) =
                   repeat: Infinity,
                   ease: "linear",
                 }}
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              />
+              {/* Pulsing glow on top */}
+              <motion.div
+                animate={{
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
               />
             </motion.div>
           </div>
 
           {/* Percentage Text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            className="text-light-200 text-center mt-4 text-sm font-medium"
-          >
-            {progress}%
-          </motion.p>
+          <motion.div className="flex items-center justify-center gap-2 mt-4">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-accent text-center text-lg font-bold"
+            >
+              {progress}%
+            </motion.p>
+            <motion.span
+              animate={{
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="text-accent text-sm"
+            >
+              ⏳
+            </motion.span>
+          </motion.div>
         </div>
 
-        {/* Pulse animation around music note */}
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0, 0.5],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-accent pointer-events-none"
-        />
+        {/* Pulse animation circles */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0, 0.3],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1,
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent pointer-events-none"
+            style={{
+              width: `${8 + i * 4}rem`,
+              height: `${8 + i * 4}rem`,
+            }}
+          />
+        ))}
       </div>
     </motion.div>
   );

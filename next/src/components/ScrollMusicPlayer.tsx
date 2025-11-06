@@ -68,6 +68,11 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     { clamp: true }
   );
 
+  // Reset initial position flag when track changes
+  useEffect(() => {
+    hasSetInitialPosition.current = false;
+  }, [track.id]);
+
   // Detect when this section is in the center of the viewport and make it active
   useEffect(() => {
     if (!containerRef.current) return;
@@ -159,33 +164,48 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     if (!audio) return;
 
     const updateTime = () => setCurrentTime(audio.currentTime);
-    const updateDuration = () => {
-      setDuration(audio.duration);
-      // Start audio at 1/5th (20%) of the song - only once
-      if (audio.duration && !hasSetInitialPosition.current) {
+
+    const setInitialPosition = () => {
+      if (audio.duration && !hasSetInitialPosition.current && audio.currentTime < 1) {
+        // Only set if we're near the beginning (< 1 second)
         audio.currentTime = audio.duration / 5;
         hasSetInitialPosition.current = true;
+        console.log(`Set initial position for track ${track.id} to ${audio.duration / 5}s`);
       }
     };
 
-    // Also try to set position when audio is ready to play
+    const updateDuration = () => {
+      setDuration(audio.duration);
+      setInitialPosition();
+    };
+
+    // Set position when audio is ready to play
     const handleCanPlay = () => {
-      if (audio.duration && !hasSetInitialPosition.current) {
-        audio.currentTime = audio.duration / 5;
-        hasSetInitialPosition.current = true;
-      }
+      setInitialPosition();
+    };
+
+    // CRITICAL for iOS: Also set position when play event fires
+    const handlePlay = () => {
+      setInitialPosition();
     };
 
     audio.addEventListener("timeupdate", updateTime);
     audio.addEventListener("loadedmetadata", updateDuration);
     audio.addEventListener("canplay", handleCanPlay);
+    audio.addEventListener("play", handlePlay);
+
+    // Try to set immediately if duration is already available
+    if (audio.duration) {
+      setInitialPosition();
+    }
 
     return () => {
       audio.removeEventListener("timeupdate", updateTime);
       audio.removeEventListener("loadedmetadata", updateDuration);
       audio.removeEventListener("canplay", handleCanPlay);
+      audio.removeEventListener("play", handlePlay);
     };
-  }, []);
+  }, [track.id]); // Reset when track changes
 
   // Cycle through artist images
   useEffect(() => {
@@ -206,6 +226,16 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
   const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const time = parseFloat(e.target.value);
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+      setCurrentTime(time);
+    }
+  }, []);
+
+  // Also handle touch events for mobile slider
+  const handleSeekTouch = useCallback((e: React.TouchEvent<HTMLInputElement>) => {
+    const input = e.currentTarget;
+    const time = parseFloat(input.value);
     if (audioRef.current) {
       audioRef.current.currentTime = time;
       setCurrentTime(time);
@@ -534,11 +564,14 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
                     max={duration || 0}
                     value={currentTime}
                     onChange={handleSeek}
-                    className="flex-1 h-1.5 sm:h-2 rounded-full appearance-none cursor-pointer"
+                    onTouchEnd={handleSeekTouch}
+                    onInput={handleSeek}
+                    className="flex-1 h-1.5 sm:h-2 rounded-full appearance-none cursor-pointer touch-none"
                     style={{
                       background: `linear-gradient(to right, ${track.color} ${
                         (currentTime / duration) * 100
                       }%, rgba(255,255,255,0.1) ${(currentTime / duration) * 100}%)`,
+                      touchAction: 'none',
                     }}
                   />
                   <span className="text-xs text-light-100/60 w-10 sm:w-12">

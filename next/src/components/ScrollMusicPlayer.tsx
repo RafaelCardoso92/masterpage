@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, memo, useCallback } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 interface Track {
@@ -15,6 +15,7 @@ interface Track {
   youtubeUrl: string;
   artistImage?: string;
   artistImages?: string[];
+  isFavorite?: boolean;
 }
 
 interface ScrollMusicPlayerProps {
@@ -31,6 +32,7 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.7);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isManuallyPaused, setIsManuallyPaused] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { margin: "-30% 0px -30% 0px", once: false });
 
@@ -88,7 +90,8 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
     let fadeInterval: NodeJS.Timeout;
 
-    if (isInView && isActive) {
+    // Only auto-play if not manually paused
+    if (isInView && isActive && !isManuallyPaused) {
       // Fade in
       audio.volume = 0;
       audio.play().catch(() => {});
@@ -108,8 +111,8 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
       }, 50);
 
       setIsPlaying(true);
-    } else if (isPlaying) {
-      // Fade out
+    } else if (isPlaying && (!isInView || !isActive || isManuallyPaused)) {
+      // Fade out when out of view, inactive, or manually paused
       let currentVol = audio.volume;
 
       fadeInterval = setInterval(() => {
@@ -131,7 +134,7 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
     return () => {
       if (fadeInterval) clearInterval(fadeInterval);
     };
-  }, [isInView, isActive, volume, isPlaying]);
+  }, [isInView, isActive, volume, isPlaying, isManuallyPaused]);
 
   // Update time
   useEffect(() => {
@@ -184,11 +187,15 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
   const togglePlay = useCallback(() => {
     if (audioRef.current) {
       if (isPlaying) {
+        // User manually paused
         audioRef.current.pause();
         setIsPlaying(false);
+        setIsManuallyPaused(true);
       } else {
+        // User manually resumed - clear the manual pause flag
         audioRef.current.play();
         setIsPlaying(true);
+        setIsManuallyPaused(false);
       }
     }
   }, [isPlaying]);
@@ -228,17 +235,27 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
           exit={{ opacity: 0 }}
         >
           <div className="relative w-full h-full pointer-events-none">
-            <Image
-              key={currentImageIndex}
-              src={track.artistImages?.[currentImageIndex] || track.artistImage || ""}
-              alt={track.artist}
-              fill
-              className="object-cover transition-opacity duration-[2000ms] ease-in-out"
-              priority={index === 0}
-              loading={index === 0 ? "eager" : "lazy"}
-              quality={75}
-              sizes="100vw"
-            />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentImageIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                <Image
+                  src={track.artistImages?.[currentImageIndex] || track.artistImage || ""}
+                  alt={track.artist}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  quality={75}
+                  sizes="100vw"
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
       )}
@@ -254,11 +271,49 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
         {/* Player Card */}
         <div className="relative">
+          {/* Favorite Track - Extra Pulsing Glow */}
+          {track.isFavorite && isInView && (
+            <>
+              <motion.div
+                animate={{
+                  opacity: [0.4, 0.8, 0.4],
+                  scale: [1, 1.05, 1],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute -inset-8 sm:-inset-12 md:-inset-16 rounded-3xl blur-3xl pointer-events-none"
+                style={{
+                  background: `radial-gradient(circle, ${track.color}80 0%, ${track.color}40 50%, transparent 100%)`,
+                  willChange: "opacity, transform",
+                }}
+              />
+              <motion.div
+                animate={{
+                  opacity: [0.2, 0.5, 0.2],
+                  rotate: [0, 360],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="absolute -inset-12 rounded-3xl pointer-events-none"
+                style={{
+                  background: `conic-gradient(from 0deg, transparent 0%, ${track.color}60 25%, transparent 50%, ${track.color}60 75%, transparent 100%)`,
+                  filter: "blur(40px)",
+                  willChange: "opacity, transform",
+                }}
+              />
+            </>
+          )}
           {/* Background Glow - Simplified for performance */}
           {isInView && (
             <motion.div
               initial={{ opacity: 0 }}
-              animate={{ opacity: 0.3 }}
+              animate={{ opacity: track.isFavorite ? 0.5 : 0.3 }}
               transition={{ duration: 1 }}
               className="absolute -inset-4 sm:-inset-6 md:-inset-8 rounded-3xl blur-2xl pointer-events-none"
               style={{
@@ -269,7 +324,15 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
           )}
 
           {/* Main Card */}
-          <div className="relative bg-dark-200/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl border border-white/10 overflow-hidden shadow-2xl">
+          <div
+            className={`relative bg-dark-200/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl ${
+              track.isFavorite ? 'border-2' : 'border border-white/10'
+            }`}
+            style={track.isFavorite ? {
+              borderColor: track.color,
+              boxShadow: `0 0 40px ${track.color}80, 0 0 80px ${track.color}40`,
+            } : undefined}
+          >
             {/* Album Art Area */}
             <div
               className="relative h-64 sm:h-80 md:h-96 flex items-center justify-center"
@@ -327,15 +390,58 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
               )}
 
               {/* Mood Badge */}
-              <div
-                className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-8 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium border"
-                style={{
-                  backgroundColor: `${track.color}20`,
-                  color: track.color,
-                  borderColor: track.color,
-                }}
-              >
-                {track.mood}
+              <div className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-8">
+                {track.isFavorite && (
+                  <>
+                    {/* Sparkle effects around favorite badge */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [0.5, 1, 0.5],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      className="absolute -inset-2 rounded-full"
+                      style={{
+                        background: `radial-gradient(circle, ${track.color}40 0%, transparent 70%)`,
+                        filter: "blur(8px)",
+                      }}
+                    />
+                    <motion.div
+                      animate={{
+                        rotate: [0, 360],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                      className="absolute -inset-1 text-yellow-300 text-2xl pointer-events-none"
+                      style={{ textShadow: `0 0 10px ${track.color}` }}
+                    >
+                      <span className="absolute -top-1 -left-1">✨</span>
+                      <span className="absolute -top-1 -right-1">✨</span>
+                      <span className="absolute -bottom-1 -left-1">✨</span>
+                      <span className="absolute -bottom-1 -right-1">✨</span>
+                    </motion.div>
+                  </>
+                )}
+                <div
+                  className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium border ${
+                    track.isFavorite ? 'font-bold' : ''
+                  }`}
+                  style={{
+                    backgroundColor: `${track.color}${track.isFavorite ? '40' : '20'}`,
+                    color: track.isFavorite ? 'white' : track.color,
+                    borderColor: track.color,
+                    boxShadow: track.isFavorite ? `0 0 20px ${track.color}80` : undefined,
+                  }}
+                >
+                  {track.mood}
+                </div>
               </div>
             </div>
 
@@ -346,9 +452,23 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
                 animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
                 transition={{ delay: 0.2 }}
               >
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2">{track.title}</h2>
+                <h2
+                  className={`text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-2 ${
+                    track.isFavorite ? 'relative' : ''
+                  }`}
+                  style={track.isFavorite ? {
+                    textShadow: `0 0 20px ${track.color}80, 0 0 40px ${track.color}40`,
+                  } : undefined}
+                >
+                  {track.isFavorite && (
+                    <span className="inline-block mr-2 text-yellow-300 animate-pulse">⭐</span>
+                  )}
+                  {track.title}
+                </h2>
                 <p className="text-lg sm:text-xl text-light-100 mb-3 sm:mb-4">{track.artist}</p>
-                <p className="text-light-100/60 text-xs sm:text-sm mb-3 sm:mb-4">{track.description}</p>
+                <p className={`text-light-100/60 text-xs sm:text-sm mb-3 sm:mb-4 ${
+                  track.isFavorite ? 'font-medium' : ''
+                }`}>{track.description}</p>
 
                 {/* YouTube Link */}
                 <a

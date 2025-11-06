@@ -55,13 +55,68 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link key={link.name} href={link.href}>
                 <MagneticButton>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2 text-sm font-medium text-light-100 hover:text-white rounded-full hover:bg-white/5 transition-colors"
-                  >
-                    {link.name}
-                  </motion.div>
+                  {link.name === "My Vibe" ? (
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="relative px-5 py-2 text-sm font-medium text-white rounded-full overflow-hidden group"
+                    >
+                      {/* Animated gradient background */}
+                      <motion.div
+                        animate={{
+                          background: [
+                            "linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)",
+                            "linear-gradient(135deg, #3a86ff 0%, #ff006e 50%, #8338ec 100%)",
+                            "linear-gradient(135deg, #8338ec 0%, #3a86ff 50%, #ff006e 100%)",
+                            "linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)",
+                          ],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
+                      />
+                      {/* Pulsing glow */}
+                      <motion.div
+                        animate={{
+                          opacity: [0.5, 1, 0.5],
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="absolute inset-0 bg-gradient-to-r from-accent via-purple-500 to-blue-500 blur-xl opacity-50"
+                        style={{ zIndex: -1 }}
+                      />
+                      {/* Shimmer effect */}
+                      <motion.div
+                        animate={{
+                          x: ["-200%", "200%"],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      />
+                      {/* Border glow */}
+                      <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-white/40 transition-colors" />
+                      <span className="relative z-10">🎵 {link.name}</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="px-5 py-2 text-sm font-medium text-light-100 hover:text-white rounded-full hover:bg-white/5 transition-colors"
+                    >
+                      {link.name}
+                    </motion.div>
+                  )}
                 </MagneticButton>
               </Link>
             ))}
@@ -122,13 +177,69 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block px-4 py-3 text-lg font-medium text-light-100 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.name === "My Vibe" ? (
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block relative overflow-hidden rounded-xl group"
+                    >
+                      {/* Animated gradient background */}
+                      <motion.div
+                        animate={{
+                          background: [
+                            "linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)",
+                            "linear-gradient(135deg, #3a86ff 0%, #ff006e 50%, #8338ec 100%)",
+                            "linear-gradient(135deg, #8338ec 0%, #3a86ff 50%, #ff006e 100%)",
+                            "linear-gradient(135deg, #ff006e 0%, #8338ec 50%, #3a86ff 100%)",
+                          ],
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
+                      />
+                      {/* Shimmer effect */}
+                      <motion.div
+                        animate={{
+                          x: ["-200%", "200%"],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear",
+                        }}
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                      />
+                      {/* Border glow */}
+                      <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/40 transition-colors" />
+                      {/* Outer glow */}
+                      <motion.div
+                        animate={{
+                          opacity: [0.3, 0.6, 0.3],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="absolute -inset-1 bg-gradient-to-r from-accent via-purple-500 to-blue-500 blur-lg opacity-30 rounded-xl"
+                        style={{ zIndex: -1 }}
+                      />
+                      <span className="relative z-10 block px-4 py-3 text-lg font-medium text-white">
+                        🎵 {link.name}
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block px-4 py-3 text-lg font-medium text-light-100 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </motion.div>
               ))}
               <motion.div

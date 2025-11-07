@@ -401,21 +401,121 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
             >
               <motion.div
                 animate={{
-                  scale: isInView ? [1, 1.05, 1] : 1,
-                  rotate: isInView && isPlaying ? [0, 360] : 0,
+                  rotate: isPlaying ? 360 : 0,
                 }}
                 transition={{
-                  scale: { duration: 3, repeat: isInView ? Infinity : 0, ease: "easeInOut" },
-                  rotate: { duration: 20, repeat: isInView && isPlaying ? Infinity : 0, ease: "linear" },
+                  rotate: { duration: 4, repeat: isPlaying ? Infinity : 0, ease: "linear" },
                 }}
-                className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 rounded-full flex items-center justify-center border-2 sm:border-4"
+                className="w-40 h-40 sm:w-52 sm:h-52 md:w-64 md:h-64 relative"
                 style={{
-                  borderColor: track.color,
-                  backgroundColor: `${track.color}40`,
-                  willChange: isInView && isPlaying ? "transform" : "auto",
+                  willChange: isPlaying ? "transform" : "auto",
                 }}
               >
-                <div className="text-5xl sm:text-7xl md:text-8xl">{isPlaying ? "🎵" : "🎧"}</div>
+                {/* Vinyl Record */}
+                <div className="w-full h-full rounded-full relative overflow-hidden" style={{
+                  background: `radial-gradient(circle at center,
+                    ${track.color} 0%,
+                    ${track.color} 18%,
+                    #0a0a0a 18%,
+                    #0a0a0a 18.5%,
+                    #1a1a1a 18.5%,
+                    #0a0a0a 19%,
+                    #1a1a1a 19%,
+                    #0a0a0a 19.5%,
+                    #1a1a1a 19.5%,
+                    #0a0a0a 20%,
+                    #121212 20%,
+                    #0a0a0a 95%,
+                    #1a1a1a 95%,
+                    #0a0a0a 100%)`,
+                  boxShadow: `
+                    0 0 0 3px ${track.color}60,
+                    0 8px 24px rgba(0,0,0,0.6),
+                    inset 0 0 60px rgba(0,0,0,0.9),
+                    inset 0 2px 4px rgba(255,255,255,0.05)
+                  `,
+                }}>
+                  {/* Realistic Grooves - Concentric circles */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.4 }}>
+                    <defs>
+                      <radialGradient id={`vinyl-gradient-${track.id}`}>
+                        <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
+                        <stop offset="50%" stopColor="rgba(255,255,255,0.02)" />
+                        <stop offset="100%" stopColor="rgba(0,0,0,0.3)" />
+                      </radialGradient>
+                    </defs>
+                    {/* Create concentric groove circles */}
+                    {Array.from({ length: 40 }).map((_, i) => {
+                      const radius = 20 + (i * 1.5);
+                      return (
+                        <circle
+                          key={i}
+                          cx="50%"
+                          cy="50%"
+                          r={`${radius}%`}
+                          fill="none"
+                          stroke="rgba(255,255,255,0.03)"
+                          strokeWidth="0.5"
+                        />
+                      );
+                    })}
+                  </svg>
+
+                  {/* Vinyl shine effect - stays fixed while vinyl rotates */}
+                  <div
+                    className="absolute inset-0 rounded-full pointer-events-none"
+                    style={{
+                      background: `linear-gradient(135deg,
+                        transparent 0%,
+                        rgba(255,255,255,0.1) 30%,
+                        transparent 50%,
+                        rgba(0,0,0,0.2) 70%,
+                        transparent 100%)`,
+                    }}
+                  />
+
+                  {/* Center Label with album art */}
+                  <div
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-14 h-14 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full overflow-hidden"
+                    style={{
+                      boxShadow: `
+                        0 4px 12px rgba(0,0,0,0.6),
+                        inset 0 1px 3px rgba(255,255,255,0.4),
+                        inset 0 -2px 6px rgba(0,0,0,0.3),
+                        0 0 0 2px ${track.color}aa
+                      `,
+                    }}
+                  >
+                    {/* Artist Album Art */}
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={track.artistImages?.[0] || track.artistImage || ""}
+                        alt={track.artist}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 56px, (max-width: 768px) 80px, 96px"
+                      />
+                      {/* Subtle gradient overlay for depth */}
+                      <div
+                        className="absolute inset-0"
+                        style={{
+                          background: `radial-gradient(circle at 30% 30%,
+                            transparent 0%,
+                            rgba(0,0,0,0.1) 100%)`,
+                        }}
+                      />
+                    </div>
+
+                    {/* Center hole */}
+                    <div
+                      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 rounded-full z-10"
+                      style={{
+                        background: '#000',
+                        boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1)',
+                      }}
+                    />
+                  </div>
+                </div>
               </motion.div>
 
               {/* Now Playing Indicator */}
@@ -450,44 +550,6 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
 
               {/* Mood Badge */}
               <div className="absolute top-3 right-3 sm:top-6 sm:right-6 md:top-8 md:right-8">
-                {track.isFavorite && (
-                  <>
-                    {/* Sparkle effects around favorite badge */}
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.5, 1, 0.5],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                      className="absolute -inset-2 rounded-full"
-                      style={{
-                        background: `radial-gradient(circle, ${track.color}40 0%, transparent 70%)`,
-                        filter: "blur(8px)",
-                      }}
-                    />
-                    <motion.div
-                      animate={{
-                        rotate: [0, 360],
-                      }}
-                      transition={{
-                        duration: 4,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                      className="absolute -inset-1 text-yellow-300 text-2xl pointer-events-none"
-                      style={{ textShadow: `0 0 10px ${track.color}` }}
-                    >
-                      <span className="absolute -top-1 -left-1">✨</span>
-                      <span className="absolute -top-1 -right-1">✨</span>
-                      <span className="absolute -bottom-1 -left-1">✨</span>
-                      <span className="absolute -bottom-1 -right-1">✨</span>
-                    </motion.div>
-                  </>
-                )}
                 <div
                   className={`relative px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-medium border ${
                     track.isFavorite ? 'font-bold' : ''
@@ -519,9 +581,6 @@ const ScrollMusicPlayerComponent = ({ track, isActive, index, onBecomeActive }: 
                     textShadow: `0 0 20px ${track.color}80, 0 0 40px ${track.color}40`,
                   } : undefined}
                 >
-                  {track.isFavorite && (
-                    <span className="inline-block mr-2 text-yellow-300 animate-pulse">⭐</span>
-                  )}
                   {track.title}
                 </h2>
                 <p className="text-lg sm:text-xl text-light-100 mb-3 sm:mb-4">{track.artist}</p>

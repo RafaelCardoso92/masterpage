@@ -240,7 +240,7 @@ const tracks = [
       "/images/artists/joji/5.jpg",
     ],
     color: "#0466c8",
-    mood: "Favorite ⭐",
+    mood: "Favorite",
     description: "My absolute favorite. Emotional, beautiful, and unforgettable.",
     isFavorite: true,
   },

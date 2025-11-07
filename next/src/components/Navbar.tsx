@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Skills", href: "/#skills" },
   { name: "Talent", href: "/talent" },
   { name: "My Vibe", href: "/my-vibe" },
+  { name: "Bella", href: "/bella" },
 ];
 
 const Navbar = () => {
@@ -55,7 +56,61 @@ const Navbar = () => {
             {navLinks.map((link) => (
               <Link key={link.name} href={link.href}>
                 <MagneticButton>
-                  {link.name === "My Vibe" ? (
+                  {link.name === "Bella" ? (
+                    <div className="relative">
+                      {/* Outer pulsing glow */}
+                      <motion.div
+                        animate={{
+                          opacity: [0.4, 0.8, 0.4],
+                          scale: [1, 1.15, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="absolute -inset-2 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 rounded-full blur-lg"
+                      />
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="relative px-5 py-2 text-sm font-medium text-white rounded-full overflow-hidden group"
+                      >
+                        {/* Animated gradient background */}
+                        <motion.div
+                          animate={{
+                            background: [
+                              "linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%)",
+                              "linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%)",
+                              "linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #a855f7 100%)",
+                              "linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%)",
+                            ],
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
+                        />
+                        {/* Shimmer effect */}
+                        <motion.div
+                          animate={{
+                            x: ["-200%", "200%"],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        />
+                        {/* Border glow */}
+                        <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-white/40 transition-colors" />
+                        <span className="relative z-10">💜 {link.name}</span>
+                      </motion.div>
+                    </div>
+                  ) : link.name === "My Vibe" ? (
                     <div className="relative">
                       {/* Outer pulsing glow */}
                       <motion.div
@@ -106,7 +161,7 @@ const Navbar = () => {
                         />
                         {/* Border glow */}
                         <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-white/40 transition-colors" />
-                        <span className="relative z-10">🎵 {link.name}</span>
+                        <span className="relative z-10">🎧 {link.name}</span>
                       </motion.div>
                     </div>
                   ) : (
@@ -178,7 +233,63 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {link.name === "My Vibe" ? (
+                  {link.name === "Bella" ? (
+                    <div className="relative">
+                      {/* Outer pulsing glow */}
+                      <motion.div
+                        animate={{
+                          opacity: [0.4, 0.8, 0.4],
+                          scale: [1, 1.1, 1],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                        className="absolute -inset-1 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 rounded-xl blur-lg"
+                      />
+                      <Link
+                        href={link.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block relative overflow-hidden rounded-xl group"
+                      >
+                        {/* Animated gradient background */}
+                        <motion.div
+                          animate={{
+                            background: [
+                              "linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%)",
+                              "linear-gradient(135deg, #8b5cf6 0%, #a855f7 50%, #ec4899 100%)",
+                              "linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #a855f7 100%)",
+                              "linear-gradient(135deg, #a855f7 0%, #ec4899 50%, #8b5cf6 100%)",
+                            ],
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity"
+                        />
+                        {/* Shimmer effect */}
+                        <motion.div
+                          animate={{
+                            x: ["-200%", "200%"],
+                          }}
+                          transition={{
+                            duration: 3,
+                            repeat: Infinity,
+                            ease: "linear",
+                          }}
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        />
+                        {/* Border glow */}
+                        <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/40 transition-colors" />
+                        <span className="relative z-10 block px-4 py-3 text-lg font-medium text-white">
+                          💜 {link.name}
+                        </span>
+                      </Link>
+                    </div>
+                  ) : link.name === "My Vibe" ? (
                     <div className="relative">
                       {/* Outer pulsing glow */}
                       <motion.div
@@ -230,7 +341,7 @@ const Navbar = () => {
                         {/* Border glow */}
                         <div className="absolute inset-0 rounded-xl border border-white/20 group-hover:border-white/40 transition-colors" />
                         <span className="relative z-10 block px-4 py-3 text-lg font-medium text-white">
-                          🎵 {link.name}
+                          🎧 {link.name}
                         </span>
                       </Link>
                     </div>

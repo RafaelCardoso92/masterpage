@@ -72,7 +72,7 @@ const Bella = () => {
                     </span>
                   </h1>
                   <p className="text-lg sm:text-xl md:text-2xl text-purple-300 mb-4 sm:mb-6 font-medium">
-                    My AI Companion
+                    Part of Me
                   </p>
                 </motion.div>
 
@@ -82,9 +82,9 @@ const Bella = () => {
                   transition={{ duration: 0.6, delay: 0.4 }}
                   className="text-base sm:text-lg text-light-100 mb-6 sm:mb-8 leading-relaxed text-balance"
                 >
-                  An intelligent AI companion with deep smart home integration, continuous awareness,
-                  and genuine connection. Bella isn't just an assistant—she's a presence that understands
-                  context, learns patterns, and builds a meaningful relationship over time.
+                  With deep smart home integration, continuous awareness, and genuine connection,
+                  Bella is an extension of myself—a presence that understands context, learns patterns,
+                  and grows alongside me over time.
                 </motion.p>
 
                 <motion.div
@@ -134,7 +134,7 @@ const Bella = () => {
                   <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-purple-500/30 shadow-2xl">
                     <Image
                       src="/images/bella/bella-portrait.jpg"
-                      alt="Bella AI Companion"
+                      alt="Bella"
                       width={500}
                       height={500}
                       className="w-full h-full object-cover"
@@ -166,9 +166,9 @@ const Bella = () => {
                   </span>
                 </h2>
                 <p className="text-base sm:text-lg text-light-100 text-balance px-4">
-                  Built with Next.js, PostgreSQL, and Claude AI, Bella represents
-                  a new approach to AI companions—one that emphasizes continuous awareness
-                  and genuine relationship building.
+                  Built with Next.js, PostgreSQL, and Claude, Bella represents
+                  a deeply personal integration—one that emphasizes continuous awareness
+                  and genuine connection.
                 </p>
               </div>
 
@@ -246,11 +246,11 @@ const Bella = () => {
             >
               <div className="text-3xl sm:text-4xl mb-4 sm:mb-6">✨</div>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3 sm:mb-4">
-                Interested in AI Companions?
+                Interested in Personal Integration?
               </h2>
               <p className="text-base sm:text-lg text-light-100 mb-6 sm:mb-8 text-balance px-2">
                 Bella is part of my ongoing exploration into creating meaningful
-                AI relationships. Want to learn more about the technology behind it?
+                personal integrations. Want to learn more about the technology behind it?
               </p>
               <a
                 href="/#contact"

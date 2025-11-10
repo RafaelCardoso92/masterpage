@@ -31,11 +31,10 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
           ? "bg-dark/60 backdrop-blur-xl border-b border-white/10"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
@@ -107,7 +106,7 @@ const Navbar = () => {
                         />
                         {/* Border glow */}
                         <div className="absolute inset-0 rounded-full border border-white/20 group-hover:border-white/40 transition-colors" />
-                        <span className="relative z-10">💜 {link.name}</span>
+                        <span className="relative z-10">{link.name}</span>
                       </motion.div>
                     </div>
                   ) : link.name === "My Vibe" ? (

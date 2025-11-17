@@ -1,19 +1,20 @@
 {
   "production": {
-    "url": "https://ssh.rafaelcardoso.co.uk",
+    "url": "https://rafaelcardoso.co.uk",
     "status": "live",
-    "deployment_method": "cloudflare_tunnel",
-    "cloudflare_tunnel": {
-      "tunnel_id": "95b45d0b-adf5-4df4-b96d-87890cda20c3",
-      "tunnel_name": "masterpage",
-      "config_path": "/etc/cloudflared/config.yml",
-      "service_status_command": "sudo systemctl status cloudflared",
-      "logs_command": "sudo journalctl -u cloudflared -f"
+    "deployment_method": "traefik_reverse_proxy",
+    "traefik": {
+      "domains": ["rafaelcardoso.co.uk", "www.rafaelcardoso.co.uk"],
+      "network": "proxy",
+      "ssl_cert_resolver": "cloudflare",
+      "container_port": 3000
     },
     "server": {
       "host": "localhost",
       "port": 3000,
       "docker_container": "masterpage",
+      "docker_network": "proxy",
+      "docker_ip": "172.18.0.13",
       "docker_compose_file": "docker-compose.yml",
       "commands": {
         "start": "docker compose up -d",
@@ -42,9 +43,11 @@
     }
   },
   "notes": [
-    "Cloudflare Tunnel automatically handles HTTPS and SSL certificates",
-    "Tunnel service starts automatically on server boot",
+    "Masterpage is served via Traefik reverse proxy at rafaelcardoso.co.uk",
+    "Traefik handles HTTPS and SSL certificates via Cloudflare resolver",
     "Docker container auto-restarts unless stopped manually",
+    "Container uses 'proxy' network for Traefik communication",
+    "ssh.rafaelcardoso.co.uk is a separate Cloudflare Tunnel for SSH access (not masterpage)",
     "Always test locally before deploying to production"
   ]
 }

@@ -4,7 +4,7 @@ A modern, interactive portfolio website built with Next.js 16, featuring cosmic 
 
 ## 🌐 Live Site
 
-**Production:** [https://ssh.rafaelcardoso.co.uk](https://ssh.rafaelcardoso.co.uk)
+**Production:** [https://rafaelcardoso.co.uk](https://rafaelcardoso.co.uk)
 
 ## ✨ Features
 

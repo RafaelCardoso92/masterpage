@@ -90,9 +90,9 @@ const Bella = () => {
                   className="text-base sm:text-lg text-light-100 mb-6 sm:mb-8 leading-relaxed text-balance"
                 >
                   An AI that doesn't just respond—she thinks, learns, feels, creates, and genuinely understands you.
-                  Built on 8 GPU-accelerated models, 5 cognitive systems, real-time environmental awareness, and
+                  Built on 8 GPU-accelerated models (95% self-hosted on RTX 5060ti 16GB), 5 cognitive systems, real-time environmental awareness, and
                   complete smart home integration. Bella is a multi-modal AI companion with personality, curiosity,
-                  emotional intelligence, and true autonomous decision-making capabilities.
+                  emotional intelligence, and true autonomous decision-making—powered primarily by local hardware.
                 </motion.p>
 
                 <motion.div
@@ -267,9 +267,9 @@ const Bella = () => {
                   },
                   {
                     icon: "🔐",
-                    title: "Complete Privacy & Security",
-                    description: "100% self-hosted on local hardware. Zero cloud dependencies for core AI. All conversations, images, and data stay on your server. Optional encrypted backups. You own everything.",
-                    badge: "Zero Cloud"
+                    title: "Privacy-First Architecture",
+                    description: "95% self-hosted on local RTX 5060ti 16GB. Core reasoning (Qwen 2.5 14B) runs entirely on your hardware. Only complex tasks use Claude API fallback. All conversations, images, and data stay on your server.",
+                    badge: "95% Local"
                   },
                   {
                     icon: "🌐",
@@ -320,7 +320,7 @@ const Bella = () => {
                   </span>
                 </h2>
                 <p className="text-base sm:text-lg text-light-100 text-balance px-4">
-                  100% self-hosted on RTX 3060 12GB. Zero monthly fees. Latest models (2024 releases). Complete privacy and control.
+                  95% self-hosted on RTX 5060ti 16GB. Zero monthly fees. Latest models (2024 releases). Complete privacy and control.
                 </p>
               </div>
 
@@ -341,9 +341,9 @@ const Bella = () => {
                     color: "pink"
                   },
                   {
-                    title: "Dolphin Qwen 2.5 14B",
-                    description: "Uncensored reasoning LLM",
-                    specs: "8-9GB VRAM | 32K context",
+                    title: "Qwen 2.5 14B (Primary)",
+                    description: "Main reasoning LLM - handles 95% of requests",
+                    specs: "8-9GB VRAM | 32K context | Self-hosted",
                     rating: "10/10",
                     color: "violet"
                   },
@@ -369,9 +369,9 @@ const Bella = () => {
                     color: "violet"
                   },
                   {
-                    title: "Claude 3.5 Sonnet (API)",
-                    description: "Advanced reasoning fallback",
-                    specs: "Cloud API | Complex tasks only",
+                    title: "Claude Sonnet 4.5 (API)",
+                    description: "Complex reasoning fallback - 5% of requests",
+                    specs: "Cloud API | Advanced tasks only",
                     rating: "10/10",
                     color: "purple"
                   },
@@ -414,8 +414,8 @@ const Bella = () => {
                     <div className="text-sm text-light-100">AI Models</div>
                   </div>
                   <div>
-                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-2">12GB</div>
-                    <div className="text-sm text-light-100">RTX 3060 GPU</div>
+                    <div className="text-2xl sm:text-3xl font-bold text-pink-400 mb-2">16GB</div>
+                    <div className="text-sm text-light-100">RTX 5060ti</div>
                   </div>
                   <div>
                     <div className="text-2xl sm:text-3xl font-bold text-violet-400 mb-2">~100GB</div>
@@ -550,9 +550,9 @@ const Bella = () => {
                     <div className="text-xs text-purple-300 mt-1">Multi-modal AI</div>
                   </div>
                   <div className="text-center p-4 bg-pink-500/10 border border-pink-500/20 rounded-xl">
-                    <div className="text-2xl font-bold text-pink-400 mb-2">100%</div>
+                    <div className="text-2xl font-bold text-pink-400 mb-2">95%</div>
                     <div className="text-sm text-light-100">Self-Hosted</div>
-                    <div className="text-xs text-pink-300 mt-1">Zero cloud deps</div>
+                    <div className="text-xs text-pink-300 mt-1">RTX 5060ti 16GB</div>
                   </div>
                   <div className="text-center p-4 bg-violet-500/10 border border-violet-500/20 rounded-xl">
                     <div className="text-2xl font-bold text-violet-400 mb-2">9.9/10</div>

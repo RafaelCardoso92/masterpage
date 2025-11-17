@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Personal Portfolio & Masterpage
 
-## Getting Started
+A modern, interactive portfolio website built with Next.js 16, featuring cosmic animations, music integration, and dynamic content management.
 
-First, run the development server:
+## 🌐 Live Site
+
+**Production:** [https://ssh.rafaelcardoso.co.uk](https://ssh.rafaelcardoso.co.uk)
+
+## ✨ Features
+
+- 🌌 **Cosmic Background**: Dynamic starfield with planets, black holes, galaxies, and nebulas
+- 🎵 **Music Player**: Scroll-based interactive music player with vinyl animations
+- 💼 **Portfolio Showcase**: Projects, skills, and work experience
+- 🤖 **Bella AI**: AI-powered chat assistant
+- ⚡ **Admin Dashboard**: Content management for tracks, blog posts, and metrics
+- 🎨 **Smooth Animations**: Framer Motion powered interactions
+- 📱 **Responsive Design**: Mobile-first approach with Tailwind CSS
+
+## 🚀 Quick Start
+
+### Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Docker Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+docker compose up -d --build
+```
 
-## Learn More
+## 📋 Deployment Info
 
-To learn more about Next.js, take a look at the following resources:
+See [`deployment.json`](./deployment.json) for complete deployment details including:
+- Live URLs and endpoints
+- Cloudflare Tunnel configuration
+- Docker commands
+- Git repository info
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Quick Commands
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+# Restart production
+docker compose restart
 
-## Deploy on Vercel
+# View logs
+docker logs -f masterpage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Check Cloudflare Tunnel status
+sudo systemctl status cloudflared
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (React 19)
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Deployment**: Docker + Cloudflare Tunnel
+- **Database**: SQLite (for tracks/blog data)
+
+## 📁 Project Structure
+
+```
+├── src/
+│   ├── app/            # Next.js app router pages
+│   ├── components/     # React components
+│   ├── sections/       # Page sections
+│   ├── data/          # JSON data files
+│   └── styles/        # Global styles
+├── public/            # Static assets
+├── deployment.json    # Deployment configuration
+└── docker-compose.yml # Docker setup
+```
+
+## 📝 License
+
+Personal portfolio project by Rafael Cardoso

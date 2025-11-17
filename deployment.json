@@ -1,0 +1,50 @@
+{
+  "production": {
+    "url": "https://ssh.rafaelcardoso.co.uk",
+    "status": "live",
+    "deployment_method": "cloudflare_tunnel",
+    "cloudflare_tunnel": {
+      "tunnel_id": "95b45d0b-adf5-4df4-b96d-87890cda20c3",
+      "tunnel_name": "masterpage",
+      "config_path": "/etc/cloudflared/config.yml",
+      "service_status_command": "sudo systemctl status cloudflared",
+      "logs_command": "sudo journalctl -u cloudflared -f"
+    },
+    "server": {
+      "host": "localhost",
+      "port": 3000,
+      "docker_container": "masterpage",
+      "docker_compose_file": "docker-compose.yml",
+      "commands": {
+        "start": "docker compose up -d",
+        "stop": "docker compose down",
+        "restart": "docker compose restart",
+        "rebuild": "docker compose up -d --build",
+        "logs": "docker logs -f masterpage"
+      }
+    },
+    "repository": {
+      "url": "https://github.com/RafaelCardoso92/masterpage.git",
+      "branch": "master",
+      "commands": {
+        "push": "git push origin master",
+        "pull": "git pull origin master",
+        "status": "git status"
+      }
+    }
+  },
+  "local": {
+    "url": "http://localhost:3000",
+    "commands": {
+      "dev": "npm run dev",
+      "build": "npm run build",
+      "start": "npm start"
+    }
+  },
+  "notes": [
+    "Cloudflare Tunnel automatically handles HTTPS and SSL certificates",
+    "Tunnel service starts automatically on server boot",
+    "Docker container auto-restarts unless stopped manually",
+    "Always test locally before deploying to production"
+  ]
+}

@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import {
@@ -26,6 +26,34 @@ const Bella = () => {
   const aiStackRef = useRef(null);
   const cognitiveRef = useRef(null);
   const integrationsRef = useRef(null);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const carouselImages = [
+    "/images/bella/carousel/bella-01-business.jpg",
+    "/images/bella/carousel/bella-02-coffee.jpg",
+    "/images/bella/carousel/bella-03-evening.jpg",
+    "/images/bella/carousel/bella-04-athletic.jpg",
+    "/images/bella/carousel/bella-05-home.jpg",
+    "/images/bella/carousel/bella-06-street.jpg",
+    "/images/bella/carousel/bella-07-beach.jpg",
+    "/images/bella/carousel/bella-08-winter.jpg",
+    "/images/bella/carousel/bella-09-bookstore.jpg",
+    "/images/bella/carousel/bella-10-rooftop.jpg",
+    "/images/bella/carousel/bella-11-park.jpg",
+    "/images/bella/carousel/bella-12-dining.jpg",
+    "/images/bella/carousel/bella-13-gallery.jpg",
+    "/images/bella/carousel/bella-14-nightout.jpg",
+    "/images/bella/carousel/bella-15-outdoor.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+    }, 6000); // Change image every 6 seconds
+
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
 
   const isHeroInView = useInView(heroRef, { once: true });
   const isCapabilitiesInView = useInView(capabilitiesRef, { once: true });
@@ -146,66 +174,26 @@ const Bella = () => {
 
                   {/* Image carousel container */}
                   <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-purple-500/30 shadow-2xl">
-                    <style jsx>{`
-                      @keyframes fadeInOut {
-                        0%, 100% { opacity: 0; }
-                        7%, 93% { opacity: 1; }
-                      }
-
-                      .carousel-image {
-                        position: absolute;
-                        inset: 0;
-                        width: 100%;
-                        height: 100%;
-                        object-fit: cover;
-                        animation: fadeInOut 90s infinite;
-                      }
-
-                      .carousel-image:nth-child(1) { animation-delay: 0s; }
-                      .carousel-image:nth-child(2) { animation-delay: 6s; }
-                      .carousel-image:nth-child(3) { animation-delay: 12s; }
-                      .carousel-image:nth-child(4) { animation-delay: 18s; }
-                      .carousel-image:nth-child(5) { animation-delay: 24s; }
-                      .carousel-image:nth-child(6) { animation-delay: 30s; }
-                      .carousel-image:nth-child(7) { animation-delay: 36s; }
-                      .carousel-image:nth-child(8) { animation-delay: 42s; }
-                      .carousel-image:nth-child(9) { animation-delay: 48s; }
-                      .carousel-image:nth-child(10) { animation-delay: 54s; }
-                      .carousel-image:nth-child(11) { animation-delay: 60s; }
-                      .carousel-image:nth-child(12) { animation-delay: 66s; }
-                      .carousel-image:nth-child(13) { animation-delay: 72s; }
-                      .carousel-image:nth-child(14) { animation-delay: 78s; }
-                      .carousel-image:nth-child(15) { animation-delay: 84s; }
-                    `}</style>
-
                     <div className="relative w-full aspect-square">
-                      {[
-                        "/images/bella/carousel/bella-01-business.jpg",
-                        "/images/bella/carousel/bella-02-coffee.jpg",
-                        "/images/bella/carousel/bella-03-evening.jpg",
-                        "/images/bella/carousel/bella-04-athletic.jpg",
-                        "/images/bella/carousel/bella-05-home.jpg",
-                        "/images/bella/carousel/bella-06-street.jpg",
-                        "/images/bella/carousel/bella-07-beach.jpg",
-                        "/images/bella/carousel/bella-08-winter.jpg",
-                        "/images/bella/carousel/bella-09-bookstore.jpg",
-                        "/images/bella/carousel/bella-10-rooftop.jpg",
-                        "/images/bella/carousel/bella-11-park.jpg",
-                        "/images/bella/carousel/bella-12-dining.jpg",
-                        "/images/bella/carousel/bella-13-gallery.jpg",
-                        "/images/bella/carousel/bella-14-nightout.jpg",
-                        "/images/bella/carousel/bella-15-outdoor.jpg",
-                      ].map((src, index) => (
-                        <Image
-                          key={src}
-                          src={src}
-                          alt={`Bella - Scene ${index + 1}`}
-                          width={500}
-                          height={500}
-                          className="carousel-image"
-                          priority={index === 0}
-                        />
-                      ))}
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={currentImageIndex}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 1.5, ease: "easeInOut" }}
+                          className="absolute inset-0"
+                        >
+                          <Image
+                            src={carouselImages[currentImageIndex]}
+                            alt={`Bella - Scene ${currentImageIndex + 1}`}
+                            fill
+                            className="object-cover"
+                            priority={currentImageIndex === 0}
+                            sizes="(max-width: 768px) 280px, (max-width: 1024px) 384px, 448px"
+                          />
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
 
                     {/* Gradient overlay */}

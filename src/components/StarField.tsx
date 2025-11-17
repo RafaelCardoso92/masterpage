@@ -433,15 +433,16 @@ const StarField = () => {
                   className="absolute inset-0"
                   style={{
                     animation: `planetTextureSpin ${obj.planetSpinSpeed || 30}s linear infinite`,
-                    opacity: 0.4,
+                    opacity: 0.6,
                   }}
                 >
-                  {Array.from({ length: 8 }).map((_, idx) => {
+                  {obj.planetType === "rocky" && Array.from({ length: 15 }).map((_, idx) => {
                     const seed = (obj.texturePattern || 0) + idx * 137;
-                    const x = ((seed * 13) % 80) + 10;
-                    const y = ((seed * 17) % 80) + 10;
-                    const size = ((seed * 11) % 30) + 10;
-                    const opacity = ((seed * 7) % 40) / 100 + 0.1;
+                    const x = ((seed * 13) % 90) + 5;
+                    const y = ((seed * 17) % 90) + 5;
+                    const size = ((seed * 11) % 25) + 8;
+                    const opacity = ((seed * 7) % 30) / 100 + 0.15;
+                    const isCrater = idx % 3 === 0;
                     return (
                       <div
                         key={idx}
@@ -451,16 +452,112 @@ const StarField = () => {
                           top: `${y}%`,
                           width: `${size}%`,
                           height: `${size}%`,
-                          background:
-                            obj.planetType === "oceanic"
-                              ? "rgba(255,255,255,0.3)"
-                              : obj.planetType === "volcanic"
-                                ? "rgba(255,100,0,0.5)"
-                                : obj.planetType === "ice"
-                                  ? "rgba(200,230,255,0.4)"
-                                  : "rgba(0,0,0,0.3)",
-                          filter: `blur(${size / 4}px)`,
+                          background: isCrater
+                            ? "rgba(0,0,0,0.4)"
+                            : `rgba(${80 + (seed % 40)}, ${60 + (seed % 30)}, ${40 + (seed % 20)}, 0.3)`,
+                          filter: `blur(${isCrater ? size / 6 : size / 3}px)`,
+                          boxShadow: isCrater ? "inset 0 2px 4px rgba(0,0,0,0.5)" : "none",
                           opacity,
+                        }}
+                      />
+                    );
+                  })}
+                  {obj.planetType === "oceanic" && Array.from({ length: 12 }).map((_, idx) => {
+                    const seed = (obj.texturePattern || 0) + idx * 157;
+                    const x = ((seed * 19) % 85) + 5;
+                    const y = ((seed * 23) % 85) + 5;
+                    const width = ((seed * 29) % 35) + 15;
+                    const height = ((seed * 31) % 20) + 10;
+                    const isCloud = idx % 4 === 0;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute"
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                          width: `${width}%`,
+                          height: `${height}%`,
+                          background: isCloud
+                            ? "rgba(255,255,255,0.35)"
+                            : "rgba(80,120,60,0.4)",
+                          filter: `blur(${isCloud ? 3 : 2}px)`,
+                          borderRadius: isCloud ? "40%" : "30%",
+                          opacity: 0.6,
+                        }}
+                      />
+                    );
+                  })}
+                  {obj.planetType === "ice" && Array.from({ length: 10 }).map((_, idx) => {
+                    const seed = (obj.texturePattern || 0) + idx * 147;
+                    const x = ((seed * 17) % 85) + 5;
+                    const y = ((seed * 19) % 85) + 5;
+                    const size = ((seed * 13) % 30) + 10;
+                    const isCrack = idx % 2 === 0;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute"
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                          width: isCrack ? `${size * 1.5}%` : `${size}%`,
+                          height: isCrack ? `${size * 0.3}%` : `${size}%`,
+                          background: isCrack
+                            ? "rgba(150,180,210,0.5)"
+                            : "rgba(220,240,255,0.4)",
+                          filter: `blur(${isCrack ? 1 : 2}px)`,
+                          borderRadius: isCrack ? "50%" : "40%",
+                          transform: isCrack ? `rotate(${(seed * 11) % 90}deg)` : "none",
+                          opacity: 0.5,
+                        }}
+                      />
+                    );
+                  })}
+                  {(obj.planetType === "desert" || obj.planetType === "ringed") && Array.from({ length: 12 }).map((_, idx) => {
+                    const seed = (obj.texturePattern || 0) + idx * 127;
+                    const x = ((seed * 13) % 85) + 5;
+                    const y = ((seed * 17) % 85) + 5;
+                    const width = ((seed * 19) % 40) + 20;
+                    const height = ((seed * 23) % 15) + 8;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute"
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                          width: `${width}%`,
+                          height: `${height}%`,
+                          background: `rgba(${200 + (seed % 30)}, ${180 + (seed % 25)}, ${140 + (seed % 20)}, 0.25)`,
+                          filter: "blur(2px)",
+                          borderRadius: "40%",
+                          opacity: 0.4,
+                        }}
+                      />
+                    );
+                  })}
+                  {obj.planetType === "volcanic" && Array.from({ length: 10 }).map((_, idx) => {
+                    const seed = (obj.texturePattern || 0) + idx * 167;
+                    const x = ((seed * 17) % 85) + 5;
+                    const y = ((seed * 19) % 85) + 5;
+                    const size = ((seed * 13) % 20) + 10;
+                    const isLava = idx % 3 === 0;
+                    return (
+                      <div
+                        key={idx}
+                        className="absolute rounded-full"
+                        style={{
+                          left: `${x}%`,
+                          top: `${y}%`,
+                          width: `${size}%`,
+                          height: `${size}%`,
+                          background: isLava
+                            ? "rgba(255,100,0,0.6)"
+                            : "rgba(40,20,10,0.4)",
+                          filter: `blur(${isLava ? 3 : 2}px)`,
+                          boxShadow: isLava ? `0 0 ${size}px rgba(255,80,0,0.4)` : "none",
+                          opacity: isLava ? 0.7 : 0.5,
                         }}
                       />
                     );
@@ -586,7 +683,7 @@ const StarField = () => {
                 <>
                   {Array.from({ length: obj.moonCount }).map((_, moonIdx) => {
                     const moonSize = obj.moonSizes![moonIdx] * obj.size;
-                    const orbitRadius = obj.moonOrbits![moonIdx] * 50;
+                    const orbitRadiusPixels = obj.moonOrbits![moonIdx] * (obj.size / 2);
                     const moonTexture = obj.moonTextures![moonIdx];
                     const orbitDuration = (obj.moonOrbitSpeed || 15) * (1 + moonIdx * 0.3);
                     const startAngle = (moonTexture * 37) % 360;
@@ -598,8 +695,10 @@ const StarField = () => {
                         style={{
                           left: "50%",
                           top: "50%",
-                          width: 0,
-                          height: 0,
+                          width: `${orbitRadiusPixels * 2}px`,
+                          height: `${orbitRadiusPixels * 2}px`,
+                          marginLeft: `-${orbitRadiusPixels}px`,
+                          marginTop: `-${orbitRadiusPixels}px`,
                           animation: `moonOrbit ${orbitDuration}s linear infinite`,
                           transform: `rotate(${startAngle}deg)`,
                         }}
@@ -609,8 +708,10 @@ const StarField = () => {
                           style={{
                             width: `${moonSize}px`,
                             height: `${moonSize}px`,
-                            left: `${orbitRadius}%`,
-                            top: `-${moonSize / 2}px`,
+                            left: "50%",
+                            top: "0",
+                            marginLeft: `-${moonSize / 2}px`,
+                            marginTop: `-${moonSize / 2}px`,
                             boxShadow: `inset -${moonSize / 4}px -${moonSize / 4}px ${moonSize / 2}px rgba(0,0,0,0.8)`,
                           }}
                         >
@@ -937,11 +1038,17 @@ const StarField = () => {
         @keyframes planetDrift {
           0% {
             transform: translate(0, 0) translateZ(0);
+            opacity: 0;
+          }
+          10% {
+            opacity: 1;
+          }
+          85% {
             opacity: 1;
           }
           100% {
             transform: translate(var(--drift-x, 0), var(--drift-y, 0)) translateZ(0);
-            opacity: 1;
+            opacity: 0;
           }
         }
 

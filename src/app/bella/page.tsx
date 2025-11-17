@@ -122,7 +122,7 @@ const Bella = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Right side - Image */}
+              {/* Right side - Image Carousel */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={isHeroInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
@@ -144,19 +144,72 @@ const Bella = () => {
                     className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-r from-purple-500 via-pink-500 to-violet-500 rounded-full blur-2xl sm:blur-3xl"
                   />
 
-                  {/* Image container */}
+                  {/* Image carousel container */}
                   <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-purple-500/30 shadow-2xl">
-                    <Image
-                      src="/images/bella/bella-portrait.jpg"
-                      alt="Bella"
-                      width={500}
-                      height={500}
-                      className="w-full h-full object-cover"
-                      priority
-                    />
+                    <style jsx>{`
+                      @keyframes fadeInOut {
+                        0%, 100% { opacity: 0; }
+                        7%, 93% { opacity: 1; }
+                      }
+
+                      .carousel-image {
+                        position: absolute;
+                        inset: 0;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        animation: fadeInOut 90s infinite;
+                      }
+
+                      .carousel-image:nth-child(1) { animation-delay: 0s; }
+                      .carousel-image:nth-child(2) { animation-delay: 6s; }
+                      .carousel-image:nth-child(3) { animation-delay: 12s; }
+                      .carousel-image:nth-child(4) { animation-delay: 18s; }
+                      .carousel-image:nth-child(5) { animation-delay: 24s; }
+                      .carousel-image:nth-child(6) { animation-delay: 30s; }
+                      .carousel-image:nth-child(7) { animation-delay: 36s; }
+                      .carousel-image:nth-child(8) { animation-delay: 42s; }
+                      .carousel-image:nth-child(9) { animation-delay: 48s; }
+                      .carousel-image:nth-child(10) { animation-delay: 54s; }
+                      .carousel-image:nth-child(11) { animation-delay: 60s; }
+                      .carousel-image:nth-child(12) { animation-delay: 66s; }
+                      .carousel-image:nth-child(13) { animation-delay: 72s; }
+                      .carousel-image:nth-child(14) { animation-delay: 78s; }
+                      .carousel-image:nth-child(15) { animation-delay: 84s; }
+                    `}</style>
+
+                    <div className="relative w-full aspect-square">
+                      {[
+                        "/images/bella/carousel/bella-01-business.jpg",
+                        "/images/bella/carousel/bella-02-coffee.jpg",
+                        "/images/bella/carousel/bella-03-evening.jpg",
+                        "/images/bella/carousel/bella-04-athletic.jpg",
+                        "/images/bella/carousel/bella-05-home.jpg",
+                        "/images/bella/carousel/bella-06-street.jpg",
+                        "/images/bella/carousel/bella-07-beach.jpg",
+                        "/images/bella/carousel/bella-08-winter.jpg",
+                        "/images/bella/carousel/bella-09-bookstore.jpg",
+                        "/images/bella/carousel/bella-10-rooftop.jpg",
+                        "/images/bella/carousel/bella-11-park.jpg",
+                        "/images/bella/carousel/bella-12-dining.jpg",
+                        "/images/bella/carousel/bella-13-gallery.jpg",
+                        "/images/bella/carousel/bella-14-nightout.jpg",
+                        "/images/bella/carousel/bella-15-outdoor.jpg",
+                      ].map((src, index) => (
+                        <Image
+                          key={src}
+                          src={src}
+                          alt={`Bella - Scene ${index + 1}`}
+                          width={500}
+                          height={500}
+                          className="carousel-image"
+                          priority={index === 0}
+                        />
+                      ))}
+                    </div>
 
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-purple-900/50 via-transparent to-transparent pointer-events-none" />
                   </div>
                 </div>
               </motion.div>

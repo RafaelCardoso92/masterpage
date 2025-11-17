@@ -1,0 +1,10 @@
+.youtube {
+    width: 100%; 
+  }
+
+  .youtube > iframe{
+    width: 200px;
+    max-height: 200px; 
+    border-radius: 50px; 
+
+ }

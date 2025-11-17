@@ -1,0 +1,330 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+interface VibeLoaderProps {
+  onLoadComplete: () => void;
+  imageUrls: string[];
+  audioUrls: string[];
+}
+
+const VibeLoader = ({ onLoadComplete, imageUrls, audioUrls }: VibeLoaderProps) => {
+  const [progress, setProgress] = useState(0);
+  const [loadingText, setLoadingText] = useState("Loading your vibe...");
+  const [startTime] = useState(Date.now());
+
+  // Prevent scrolling while loading and lock to top
+  useEffect(() => {
+    // Scroll to top immediately
+    window.scrollTo(0, 0);
+
+    // Lock scrolling
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '0';
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
+  useEffect(() => {
+    // Detect iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+    // On iOS, skip audio preloading (won't work until user interaction anyway)
+    const totalResources = isIOS ? imageUrls.length : imageUrls.length + audioUrls.length;
+    let loadedResources = 0;
+    let hasCompleted = false;
+
+    const completeLoading = () => {
+      if (hasCompleted) return;
+      hasCompleted = true;
+
+      const elapsedTime = Date.now() - startTime;
+      const minDisplayTime = 2000;
+      const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+
+      setTimeout(() => {
+        onLoadComplete();
+      }, remainingTime + 500);
+    };
+
+    const updateProgress = () => {
+      loadedResources++;
+      const percentage = Math.round((loadedResources / totalResources) * 100);
+      setProgress(percentage);
+
+      // Update loading text based on progress
+      if (percentage < 25) {
+        setLoadingText("Loading your vibe...");
+      } else if (percentage < 50) {
+        setLoadingText("Preparing artist images...");
+      } else if (percentage < 75) {
+        setLoadingText(isIOS ? "Getting ready..." : "Loading audio tracks...");
+      } else if (percentage < 95) {
+        setLoadingText("Almost ready...");
+      } else {
+        setLoadingText("Get ready to vibe! 🎧");
+      }
+
+      if (loadedResources >= totalResources) {
+        completeLoading();
+      }
+    };
+
+    // Maximum timeout to prevent infinite loading (8 seconds)
+    const maxLoadTimeout = setTimeout(() => {
+      console.warn('Loading timeout reached, forcing completion');
+      setProgress(100);
+      completeLoading();
+    }, 8000);
+
+    // Preload images
+    const imagePromises = imageUrls.map((url) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        const timeout = setTimeout(() => {
+          updateProgress();
+          resolve(null);
+        }, 3000); // 3 second timeout per image
+
+        img.onload = () => {
+          clearTimeout(timeout);
+          updateProgress();
+          resolve(null);
+        };
+        img.onerror = () => {
+          clearTimeout(timeout);
+          updateProgress();
+          resolve(null);
+        };
+        img.src = url;
+      });
+    });
+
+    // Preload audio (skip on iOS)
+    const audioPromises = isIOS ? [] : audioUrls.map((url) => {
+      return new Promise((resolve) => {
+        const timeout = setTimeout(() => {
+          updateProgress();
+          resolve(null);
+        }, 2000); // 2 second timeout per audio
+
+        const audio = new Audio();
+        audio.addEventListener("canplaythrough", () => {
+          clearTimeout(timeout);
+          updateProgress();
+          resolve(null);
+        }, { once: true });
+        audio.addEventListener("error", () => {
+          clearTimeout(timeout);
+          updateProgress();
+          resolve(null);
+        }, { once: true });
+        audio.src = url;
+      });
+    });
+
+    Promise.all([...imagePromises, ...audioPromises])
+      .finally(() => {
+        clearTimeout(maxLoadTimeout);
+        if (!hasCompleted) {
+          completeLoading();
+        }
+      });
+
+    return () => {
+      clearTimeout(maxLoadTimeout);
+    };
+  }, [imageUrls, audioUrls, onLoadComplete, startTime]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-dark via-dark to-dark-200"
+    >
+      {/* Animated background particles */}
+      <div className="absolute inset-0 overflow-hidden">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-accent/20 rounded-full"
+            initial={{
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1920),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080),
+            }}
+            animate={{
+              y: [null, Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1080)],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-md w-full px-8 relative z-10">
+        {/* Music Note Icon with pulsing glow */}
+        <motion.div
+          initial={{ scale: 0, rotate: -180 }}
+          animate={{
+            scale: 1,
+            rotate: 0,
+          }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="relative text-6xl text-accent mb-8 text-center"
+        >
+          <motion.div
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.8, 0.5],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <div className="w-20 h-20 bg-accent/30 rounded-full blur-2xl" />
+          </motion.div>
+          <motion.span
+            animate={{
+              rotate: [0, 10, -10, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="relative inline-block"
+          >
+            🎵
+          </motion.span>
+        </motion.div>
+
+        {/* Loading Text with fade animation */}
+        <motion.p
+          key={loadingText}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5 }}
+          className="text-light-100 text-center mb-8 text-lg font-medium"
+        >
+          {loadingText}
+        </motion.p>
+
+        {/* Progress Bar Container */}
+        <div className="relative">
+          {/* Background bar with glow */}
+          <div className="h-3 bg-dark-100 rounded-full overflow-hidden relative">
+            {/* Glowing shadow under progress bar */}
+            <motion.div
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="absolute -inset-1 bg-accent/20 blur-md"
+            />
+            {/* Progress fill */}
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="h-full bg-gradient-to-r from-accent via-purple-500 to-accent rounded-full relative overflow-hidden"
+            >
+              {/* Animated shimmer effect */}
+              <motion.div
+                animate={{
+                  x: ["-100%", "200%"],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              />
+              {/* Pulsing glow on top */}
+              <motion.div
+                animate={{
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
+              />
+            </motion.div>
+          </div>
+
+          {/* Percentage Text */}
+          <motion.div className="flex items-center justify-center gap-2 mt-4">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-accent text-center text-lg font-bold"
+            >
+              {progress}%
+            </motion.p>
+            <motion.span
+              animate={{
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              className="text-accent text-sm"
+            >
+              ⏳
+            </motion.span>
+          </motion.div>
+        </div>
+
+        {/* Pulse animation circles */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0, 0.3],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1,
+            }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-accent pointer-events-none"
+            style={{
+              width: `${8 + i * 4}rem`,
+              height: `${8 + i * 4}rem`,
+            }}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+};
+
+export default VibeLoader;

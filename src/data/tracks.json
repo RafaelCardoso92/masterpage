@@ -1,0 +1,238 @@
+[
+  {
+    "id": "1",
+    "title": "(un)Folded",
+    "artist": "Kehlani",
+    "audioPath": "/music/track1.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=g5WXFVF9sgk",
+    "artistImage": "/images/artists/kehlani/1.jpg",
+    "artistImages": [
+      "/images/artists/kehlani/1.jpg",
+      "/images/artists/kehlani/2.jpg",
+      "/images/artists/kehlani/3.jpg",
+      "/images/artists/kehlani/4.jpg",
+      "/images/artists/kehlani/5.jpg"
+    ],
+    "color": "#ff006e",
+    "mood": "Passion",
+    "description": "Perfect for deep focus sessions."
+  },
+  {
+    "id": "2",
+    "title": "𝑺𝑯𝑶𝑻𝑻𝒀 ",
+    "artist": "HYOLYN",
+    "audioPath": "/music/track2.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=gtC5UgMaRO4&list=RDgtC5UgMaRO4",
+    "artistImage": "/images/artists/hyolyn/1.jpg",
+    "artistImages": [
+      "/images/artists/hyolyn/1.jpg",
+      "/images/artists/hyolyn/2.jpg",
+      "/images/artists/hyolyn/3.jpg",
+      "/images/artists/hyolyn/4.jpg",
+      "/images/artists/hyolyn/5.jpg"
+    ],
+    "color": "#8338ec",
+    "mood": "Chill 😌",
+    "description": "Late night coding vibes. Smooth beats that help me think clearly."
+  },
+  {
+    "id": "3",
+    "title": "80/20 Rule",
+    "artist": "Larissa Lambert",
+    "audioPath": "/music/track3.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=qrIw-jRg1jk",
+    "artistImage": "/images/artists/larissa/1.jpg",
+    "artistImages": [
+      "/images/artists/larissa/1.jpg",
+      "/images/artists/larissa/2.jpg",
+      "/images/artists/larissa/3.jpg",
+      "/images/artists/larissa/4.jpg",
+      "/images/artists/larissa/5.jpg"
+    ],
+    "color": "#3a86ff",
+    "mood": "Focus 🎯",
+    "description": "Maximum concentration mode. This is my go-to for solving complex problems."
+  },
+  {
+    "id": "4",
+    "title": "Layin' Low (feat. Jooyoung)",
+    "artist": "HYOLYN",
+    "audioPath": "/music/track4.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=-CXgH2HrdQA",
+    "artistImage": "/images/artists/hyolyn/1.jpg",
+    "artistImages": [
+      "/images/artists/hyolyn/1.jpg",
+      "/images/artists/hyolyn/2.jpg",
+      "/images/artists/hyolyn/3.jpg",
+      "/images/artists/hyolyn/4.jpg",
+      "/images/artists/hyolyn/5.jpg"
+    ],
+    "color": "#06ffa5",
+    "mood": "Creative 🎨",
+    "description": "When I need to think outside the box. Sparks creativity and innovation."
+  },
+  {
+    "id": "5",
+    "title": "butterflies (2 a.m. Version)",
+    "artist": "Denise Julia",
+    "audioPath": "/music/track5.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=KzrlWYxwN88",
+    "artistImage": "/images/artists/denise/1.jpg",
+    "artistImages": [
+      "/images/artists/denise/1.jpg",
+      "/images/artists/denise/2.jpg",
+      "/images/artists/denise/3.jpg",
+      "/images/artists/denise/4.jpg",
+      "/images/artists/denise/5.jpg"
+    ],
+    "color": "#ffbe0b",
+    "mood": "Inspired ✨",
+    "description": "Building something amazing? This track fuels my passion and drive."
+  },
+  {
+    "id": "6",
+    "title": "worst behaviour",
+    "artist": "kwn ft. Kehlani",
+    "audioPath": "/music/track6.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=VHsJCGh4gr4",
+    "artistImage": "/images/artists/kwn/1.jpg",
+    "artistImages": [
+      "/images/artists/kwn/1.jpg",
+      "/images/artists/kwn/2.jpg",
+      "/images/artists/kwn/3.jpg",
+      "/images/artists/kwn/4.jpg",
+      "/images/artists/kwn/5.jpg"
+    ],
+    "color": "#c71f37",
+    "mood": "Intense 🔥",
+    "description": "Raw energy and emotion. Perfect for when you need that fire."
+  },
+  {
+    "id": "7",
+    "title": "It Depends",
+    "artist": "Chris Brown ft. Bryson Tiller",
+    "audioPath": "/music/track7.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=MueOsq3_OVg",
+    "artistImage": "/images/artists/chris-brown/1.jpg",
+    "artistImages": [
+      "/images/artists/chris-brown/1.jpg",
+      "/images/artists/chris-brown/2.jpg",
+      "/images/artists/chris-brown/3.jpg",
+      "/images/artists/chris-brown/4.jpg",
+      "/images/artists/chris-brown/5.jpg"
+    ],
+    "color": "#fb8500",
+    "mood": "Smooth 😎",
+    "description": "Laid-back vibes and smooth rhythms. Pure R&B excellence."
+  },
+  {
+    "id": "8",
+    "title": "Better",
+    "artist": "Khalid",
+    "audioPath": "/music/track8.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=x3bfa3DZ8JM",
+    "artistImage": "/images/artists/khalid/1.jpg",
+    "artistImages": [
+      "/images/artists/khalid/1.jpg",
+      "/images/artists/khalid/2.jpg",
+      "/images/artists/khalid/3.jpg",
+      "/images/artists/khalid/4.jpg",
+      "/images/artists/khalid/5.jpg"
+    ],
+    "color": "#06a77d",
+    "mood": "Uplifting 🌟",
+    "description": "Positive energy and hopeful melodies. Makes everything better."
+  },
+  {
+    "id": "9",
+    "title": "HOWLING",
+    "artist": "XG",
+    "audioPath": "/music/track9.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=rGqEuk8Om-4",
+    "artistImage": "/images/artists/xg/1.jpg",
+    "artistImages": [
+      "/images/artists/xg/1.jpg",
+      "/images/artists/xg/2.jpg",
+      "/images/artists/xg/3.jpg",
+      "/images/artists/xg/4.jpg",
+      "/images/artists/xg/5.jpg"
+    ],
+    "color": "#d81159",
+    "mood": "Energetic ⚡",
+    "description": "High energy and powerful vocals. When you need that boost."
+  },
+  {
+    "id": "10",
+    "title": "Like I Want You",
+    "artist": "GIVĒON",
+    "audioPath": "/music/track10.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=yNNMKN9BUmU",
+    "artistImage": "/images/artists/giveon/1.jpg",
+    "artistImages": [
+      "/images/artists/giveon/1.jpg",
+      "/images/artists/giveon/2.jpg",
+      "/images/artists/giveon/3.jpg",
+      "/images/artists/giveon/4.jpg",
+      "/images/artists/giveon/5.jpg"
+    ],
+    "color": "#6a4c93",
+    "mood": "Soulful 💜",
+    "description": "Deep, rich vocals that hit different. Perfect for late night vibes."
+  },
+  {
+    "id": "11",
+    "title": "Get You",
+    "artist": "Daniel Caesar ft. Kali Uchis",
+    "audioPath": "/music/track11.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=uQFVqltOXRg",
+    "artistImage": "/images/artists/daniel-caesar/1.jpg",
+    "artistImages": [
+      "/images/artists/daniel-caesar/1.jpg",
+      "/images/artists/daniel-caesar/2.jpg",
+      "/images/artists/daniel-caesar/3.jpg",
+      "/images/artists/daniel-caesar/4.jpg",
+      "/images/artists/daniel-caesar/5.jpg"
+    ],
+    "color": "#ef476f",
+    "mood": "Romantic 💕",
+    "description": "Smooth R&B perfection. The ultimate love song."
+  },
+  {
+    "id": "12",
+    "title": "SLOW DANCING IN THE DARK",
+    "artist": "Joji",
+    "audioPath": "/music/track12.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=K3Qzzggn--s",
+    "artistImage": "/images/artists/joji/1.jpg",
+    "artistImages": [
+      "/images/artists/joji/1.jpg",
+      "/images/artists/joji/2.jpg",
+      "/images/artists/joji/3.jpg",
+      "/images/artists/joji/4.jpg",
+      "/images/artists/joji/5.jpg"
+    ],
+    "color": "#0466c8",
+    "mood": "Favorite",
+    "description": "My absolute favorite. Emotional, beautiful, and unforgettable.",
+    "isFavorite": true
+  },
+  {
+    "title": "Out The Window",
+    "artist": "Kehlani",
+    "audioPath": "/uploads/audio/1763332711673-Kehlani-Out-The-Window-Official-Audio-.mp3",
+    "youtubeUrl": "https://www.youtube.com/watch?v=SVyULS2aPmQ",
+    "artistImage": "https://i.ytimg.com/vi/SVyULS2aPmQ/maxresdefault.jpg",
+    "artistImages": [
+      "/uploads/images/1763332716392-it8ovr.webp",
+      "/uploads/images/1763332716519-a9eeb.webp",
+      "/uploads/images/1763332716676-ii337.webp",
+      "",
+      ""
+    ],
+    "color": "#ffffff",
+    "mood": "Uplifting 🌟",
+    "description": "",
+    "isFavorite": false,
+    "id": "13"
+  }
+]

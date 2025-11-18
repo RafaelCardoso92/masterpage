@@ -27,7 +27,7 @@ export function middleware(request: NextRequest) {
       "font-src 'self' https://fonts.gstatic.com https://stijndv.com",
       "img-src 'self' data: https: blob:",
       "media-src 'self' blob: https:",
-      "connect-src 'self' https://www.googleapis.com https://youtube.com https://www.youtube.com",
+      "connect-src 'self' https://www.googleapis.com https://youtube.com https://www.youtube.com https://bella.rafaelcardoso.co.uk",
       "frame-src 'self' https://www.youtube.com",
       "object-src 'none'",
       "base-uri 'self'",

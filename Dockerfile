@@ -22,12 +22,27 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Install ffmpeg and yt-dlp for audio processing
-RUN apk update && apk add --no-cache ffmpeg python3 py3-pip || true
+# Install system monitoring tools, ffmpeg, yt-dlp, and Docker CLI
+# - coreutils: GNU df command for disk monitoring
+# - procps: proper top/ps commands for CPU monitoring
+# - ffmpeg: for media processing
+# - docker-cli: for GPU mode container management
+RUN apk update && apk add --no-cache \
+    coreutils \
+    procps \
+    ffmpeg \
+    python3 \
+    py3-pip \
+    docker-cli \
+    || true
 RUN pip3 install --break-system-packages yt-dlp || true
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
+
+# Add nextjs user to docker group for GPU mode API access
+RUN addgroup -g 988 docker || true
+RUN adduser nextjs docker || true
 
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./

@@ -10,6 +10,7 @@ export default function AdminNav() {
     { href: "/admin/vibe", label: "Vibe Manager", icon: "🎵" },
     { href: "/admin/homepage-music", label: "Homepage Music", icon: "🏠" },
     { href: "/admin/bella/blog", label: "Bella Blog", icon: "💜" },
+    { href: "/admin/bella/chat-features", label: "Bella Features", icon: "✨" },
     { href: "/admin/webcam", label: "Webcam Monitor", icon: "📷" },
     { href: "/admin/metrics", label: "Analytics", icon: "📊" },
     { href: "/admin/gpu-mode", label: "GPU Mode", icon: "🎮" },

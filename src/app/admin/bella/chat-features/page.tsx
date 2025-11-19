@@ -256,7 +256,7 @@ export default function ChatFeaturesPage() {
             <div>
               <span className="font-bold text-pink-700">Rafael:</span>
               <p className="text-pink-600">
-                Features available to Rafael (identified by email: rafaelcardoso.tech@gmail.com)
+                Features available to Rafael (identified by email: rafaell.cardoso.O.o@gmail.com)
               </p>
             </div>
           </div>

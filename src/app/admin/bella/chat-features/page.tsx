@@ -24,7 +24,7 @@ export default function ChatFeaturesPage() {
 
   const fetchFeatures = async () => {
     try {
-      const response = await fetch("https://bella.rafaelcardoso.co.uk/api/admin/features");
+      const response = await fetch("/api/bella/features");
       const data = await response.json();
       setFeatures(data.features || []);
     } catch (error) {
@@ -37,7 +37,7 @@ export default function ChatFeaturesPage() {
   const initializeFeatures = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://bella.rafaelcardoso.co.uk/api/admin/features", {
+      const response = await fetch("/api/bella/features", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "initialize" }),
@@ -58,7 +58,7 @@ export default function ChatFeaturesPage() {
   ) => {
     try {
       setUpdating(featureKey);
-      const response = await fetch("https://bella.rafaelcardoso.co.uk/api/admin/features", {
+      const response = await fetch("/api/bella/features", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -4,27 +4,51 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 
+// Helper function to get CSRF token from cookie
+function getCsrfToken(): string | null {
+  const cookies = document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'csrf_token') {
+      return decodeURIComponent(value);
+    }
+  }
+  return null;
+}
+
 export default function AdminLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [retryAfter, setRetryAfter] = useState<number | null>(null);
+  const [csrfToken, setCsrfToken] = useState<string | null>(null);
   const router = useRouter();
 
-  // Check if already authenticated
+  // Get CSRF token on mount
   useEffect(() => {
-    async function checkAuth() {
+    async function getCsrfTokenFromServer() {
       try {
         const res = await fetch("/api/admin/auth");
         const data = await res.json();
         if (data.authenticated) {
           router.push("/admin/vibe");
+        } else {
+          // Get CSRF token from cookie
+          const token = getCsrfToken();
+          if (!token) {
+            // If no token in cookie, request one
+            const tokenRes = await fetch("/api/admin/csrf");
+            const tokenData = await tokenRes.json();
+            setCsrfToken(tokenData.csrfToken);
+          } else {
+            setCsrfToken(token);
+          }
         }
       } catch (error) {
         console.error("Auth check error:", error);
       }
     }
-    checkAuth();
+    getCsrfTokenFromServer();
   }, [router]);
 
   // Countdown effect for retry after
@@ -48,13 +72,19 @@ export default function AdminLogin() {
     e.preventDefault();
     setError("");
     setRetryAfter(null);
+
+    if (!csrfToken) {
+      setError("Security token not available. Please refresh the page.");
+      return;
+    }
+
     setLoading(true);
 
     try {
       const res = await fetch("/api/admin/auth", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, csrfToken }),
       });
 
       if (res.ok) {
@@ -66,6 +96,9 @@ export default function AdminLogin() {
           // Rate limited
           setError(data.error || "Too many login attempts");
           setRetryAfter(data.retryAfter || 3600);
+        } else if (res.status === 403) {
+          // CSRF token invalid - refresh page to get new token
+          setError("Security token expired. Please refresh the page.");
         } else {
           setError(data.error || "Invalid password");
         }
@@ -147,7 +180,7 @@ export default function AdminLogin() {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={loading || !password || (retryAfter !== null && retryAfter > 0)}
+              disabled={loading || !password || !csrfToken || (retryAfter !== null && retryAfter > 0)}
               className="w-full px-6 py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {loading ? (

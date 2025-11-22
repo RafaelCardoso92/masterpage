@@ -15,12 +15,7 @@ export function Analytics() {
     // Track page visit
     const trackVisit = async () => {
       try {
-        // Get hostname to track which domain is being used
-        const hostname = window.location.hostname;
         const pagePath = pathname || "/";
-
-        // Combine hostname and path for better tracking
-        const fullPage = `${hostname}${pagePath}`;
 
         await fetch("/api/metrics", {
           method: "POST",
@@ -28,7 +23,7 @@ export function Analytics() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            page: fullPage,
+            page: pagePath,
             referrer: document.referrer,
             screenResolution: `${window.screen.width}x${window.screen.height}`,
             language: navigator.language,

@@ -10,7 +10,7 @@ export function hashPassword(password: string): string {
 }
 
 /**
- * Verify a password against a hashed password
+ * Verify a password against a hashed password using constant-time comparison
  */
 export function verifyPassword(password: string, hashedPassword: string): boolean {
   try {
@@ -19,7 +19,12 @@ export function verifyPassword(password: string, hashedPassword: string): boolea
       return false;
     }
     const hash = crypto.pbkdf2Sync(password, salt, 100000, 64, 'sha512').toString('hex');
-    return hash === originalHash;
+
+    // Use constant-time comparison to prevent timing attacks
+    const originalHashBuffer = Buffer.from(originalHash, 'hex');
+    const hashBuffer = Buffer.from(hash, 'hex');
+
+    return crypto.timingSafeEqual(originalHashBuffer, hashBuffer);
   } catch (error) {
     return false;
   }

@@ -29,6 +29,21 @@ export default function MetricsAdmin() {
   const [period, setPeriod] = useState("all");
   const [showClearConfirm, setShowClearConfirm] = useState(false);
 
+  // Helper to format relative time
+  const getRelativeTime = (timestamp: string) => {
+    const now = new Date();
+    const then = new Date(timestamp);
+    const diffMs = now.getTime() - then.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 1) return "just now";
+    if (diffMins < 60) return `${diffMins} minute${diffMins !== 1 ? "s" : ""} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours !== 1 ? "s" : ""} ago`;
+    return `${diffDays} day${diffDays !== 1 ? "s" : ""} ago`;
+  };
+
   // Check authentication on mount
   useEffect(() => {
     async function checkAuth() {
@@ -53,6 +68,13 @@ export default function MetricsAdmin() {
   useEffect(() => {
     if (isAuthenticated) {
       fetchMetrics();
+
+      // Auto-refresh every 30 seconds
+      const interval = setInterval(() => {
+        fetchMetrics();
+      }, 30000);
+
+      return () => clearInterval(interval);
     }
   }, [isAuthenticated, period]);
 
@@ -133,12 +155,16 @@ export default function MetricsAdmin() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-2">Analytics Dashboard</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">
+              Analytics Dashboard
+              {loading && <span className="ml-3 text-sm text-accent animate-pulse">Refreshing...</span>}
+            </h1>
             <p className="text-light-100/60">
               {analytics?.summary.lastUpdated
-                ? `Last updated: ${new Date(analytics.summary.lastUpdated).toLocaleString()}`
+                ? `Last updated: ${getRelativeTime(analytics.summary.lastUpdated)} (${new Date(analytics.summary.lastUpdated).toLocaleString()})`
                 : "No data yet"}
             </p>
+            <p className="text-light-100/40 text-sm mt-1">Auto-refreshes every 30 seconds</p>
           </div>
           <div className="flex gap-3">
             <button
@@ -378,7 +404,12 @@ export default function MetricsAdmin() {
                   analytics.recentVisits.slice(0, 20).map((visit) => (
                     <tr key={visit.id} className="border-b border-dark-400/50 hover:bg-dark-300/30">
                       <td className="py-3 px-4 text-light-100">
-                        {new Date(visit.timestamp).toLocaleString()}
+                        <div className="flex flex-col">
+                          <span className="font-medium">{getRelativeTime(visit.timestamp)}</span>
+                          <span className="text-xs text-light-100/60">
+                            {new Date(visit.timestamp).toLocaleString()}
+                          </span>
+                        </div>
                       </td>
                       <td className="py-3 px-4 text-light-100">{visit.page}</td>
                       <td className="py-3 px-4 text-light-100">

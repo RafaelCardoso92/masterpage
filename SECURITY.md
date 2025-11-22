@@ -12,12 +12,35 @@ This document outlines the security measures implemented to protect the admin in
 - **7-day expiration**: Sessions automatically expire after one week
 
 ### Password Security
-- **PBKDF2 hashing**: Passwords hashed with 100,000 iterations
-- **Salted hashes**: Each password uses a unique random salt
-- **Legacy support**: System supports both plain text and hashed passwords for migration
+- **PBKDF2 hashing**: Passwords hashed with 100,000 iterations (SHA-512)
+- **Salted hashes**: Each password uses a unique random salt (16 bytes)
+- **Constant-time comparison**: Uses `crypto.timingSafeEqual` to prevent timing attacks
+- **No plain text support**: System now REQUIRES hashed passwords for security
 - **Password hashing utility**: Use `node scripts/hash-password.js` to generate secure hashes
 
 ## Attack Prevention
+
+### Session Management & Hijacking Prevention
+- **Session validation**: Sessions validated with IP address and User-Agent
+- **Session storage**: Server-side session storage with proper validation
+- **Session expiry**: Automatic session expiration after 7 days
+- **Hijacking detection**: Detects and logs potential session hijacking attempts
+- **Session revocation**: Sessions properly revoked on logout
+
+### CSRF Protection
+- **CSRF tokens**: All state-changing operations require valid CSRF tokens
+- **One-time use**: CSRF tokens consumed after single use
+- **Token expiry**: CSRF tokens expire after 1 hour
+- **Cookie distribution**: Tokens securely distributed via cookies
+- **Automatic validation**: Server validates CSRF tokens on all POST requests
+
+### Security Audit Logging
+- **Login tracking**: All login attempts (success/failure) logged
+- **Rate limit events**: Rate limiting violations logged
+- **Session events**: Session hijacking attempts logged
+- **CSRF violations**: Invalid CSRF token usage logged
+- **IP masking**: IP addresses masked in logs for GDPR compliance
+- **Structured logging**: All events include timestamp, IP, and User-Agent
 
 ### Rate Limiting
 - **5 failed attempts per 15 minutes**: Prevents brute force attacks
@@ -44,7 +67,9 @@ This document outlines the security measures implemented to protect the admin in
 
 ### Cross-Site Request Forgery (CSRF) Protection
 - **SameSite strict cookies**: Prevents cross-origin cookie sending
-- **Origin validation**: Request origins validated server-side
+- **CSRF token validation**: All POST requests require valid CSRF tokens
+- **One-time use tokens**: CSRF tokens are consumed after single use
+- **Token expiry**: CSRF tokens expire after 1 hour
 - **Secure session tokens**: Unpredictable session identifiers
 
 ### Clickjacking Protection
@@ -105,12 +130,11 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains; preload (product
 
 ### Environment Variables
 ```env
-# Use hashed password (recommended)
+# REQUIRED: Use hashed password (plain text no longer supported)
 ADMIN_PASSWORD=a1b2c3d4e5f6...:e7f8g9h0i1j2...
-
-# Or plain text (legacy, less secure)
-ADMIN_PASSWORD=your_secure_password_here
 ```
+
+**Important**: Plain text passwords are no longer supported. You MUST hash your password using the `hash-password.js` script.
 
 ### Deployment Checklist
 - [ ] Change default admin password
@@ -181,6 +205,31 @@ npm audit fix
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Next.js Security](https://nextjs.org/docs/advanced-features/security-headers)
 - [Node.js Security Best Practices](https://nodejs.org/en/docs/guides/security/)
+
+## Recent Security Updates
+
+### Version 2.0 (2025-11-20)
+**Major Security Enhancements:**
+- ✅ Added server-side session validation with IP and User-Agent checks
+- ✅ Implemented CSRF token protection for all state-changing operations
+- ✅ Added constant-time password comparison to prevent timing attacks
+- ✅ Removed support for plain text passwords (hashed only)
+- ✅ Implemented comprehensive security audit logging
+- ✅ Enhanced security headers (HSTS, CSP)
+- ✅ Added session hijacking detection
+- ✅ Improved GDPR compliance with IP masking in logs
+
+**Breaking Changes:**
+- Plain text passwords are no longer supported
+- All admin passwords MUST be hashed using `node scripts/hash-password.js`
+- CSRF tokens required for login endpoint
+
+**Migration Required:**
+If you're using a plain text password, you must hash it:
+```bash
+node scripts/hash-password.js
+# Update your .env with the hashed password
+```
 
 ## Contact
 
